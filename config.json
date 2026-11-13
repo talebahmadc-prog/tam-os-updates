@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "owner": "talebahmadc-prog",
+  "repo": "tam-os-updates",
+  "branch": "main",
+  "rawBaseUrl": "https://raw.githubusercontent.com/talebahmadc-prog/tam-os-updates/main",
+  "releasesBaseUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download",
+  "dataFiles": {
+    "apps": "data/apps.json",
+    "vehicles": "data/vehicles.json",
+    "categories": "data/categories.json",
+    "releaseIndex": "releases/release-index.json"
+  },
+  "cache": {
+    "ttlSeconds": 3600,
+    "etagSupported": true
+  }
+}

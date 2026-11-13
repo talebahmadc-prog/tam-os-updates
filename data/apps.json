@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-13",
+  "apps": [
+    {
+      "id": "youtube",
+      "name": "TAM YouTube",
+      "description": "YouTube client optimized for TAM OS head units.",
+      "packageName": "com.tam.youtube",
+      "category": "media",
+      "tags": ["media", "video", "streaming"],
+      "enabled": true,
+      "compatibility": {
+        "allVehicles": false,
+        "vehicles": ["neta-u", "neta-x", "byd-han"],
+        "require": {
+          "minAndroidVersion": 10
+        },
+        "prefer": {
+          "tags": ["sa8295"]
+        },
+        "exclude": {
+          "vehicles": [],
+          "tags": []
+        }
+      },
+      "releases": [
+        {
+          "variant": "neta-u",
+          "versionCode": 5,
+          "versionName": "1.5.0",
+          "releaseTag": "neta-u-2026-11-1",
+          "apkFileName": "tam-youtube-1.5.0.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/neta-u-2026-11-1/tam-youtube-1.5.0.apk",
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "minAndroidVersion": 10,
+          "compatibility": {
+            "vehicles": ["neta-u", "neta-x"],
+            "require": {}
+          },
+          "changelog": "Performance improvements and playback fixes.",
+          "updatedAt": "2026-11-13"
+        },
+        {
+          "variant": "byd",
+          "versionCode": 3,
+          "versionName": "1.2.0",
+          "releaseTag": "byd-2026-11-1",
+          "apkFileName": "tam-youtube-1.2.0.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/byd-2026-11-1/tam-youtube-1.2.0.apk",
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "minAndroidVersion": 11,
+          "compatibility": {
+            "vehicles": ["byd-han"],
+            "require": {}
+          },
+          "changelog": "Initial BYD build.",
+          "updatedAt": "2026-11-13"
+        }
+      ]
+    },
+    {
+      "id": "tam-voice",
+      "name": "TAM Voice",
+      "description": "Offline-capable voice assistant for TAM OS.",
+      "packageName": "com.tam.voice",
+      "category": "tools",
+      "tags": ["assistant", "voice"],
+      "enabled": true,
+      "compatibility": {
+        "allVehicles": false,
+        "vehicles": ["neta-u", "neta-x", "byd-han"],
+        "require": {
+          "minAndroidVersion": 10
+        },
+        "prefer": {},
+        "exclude": {
+          "vehicles": [],
+          "tags": []
+        }
+      },
+      "releases": [
+        {
+          "variant": "neta-u",
+          "versionCode": 15,
+          "versionName": "1.5.0",
+          "releaseTag": "neta-u-2026-11-1",
+          "apkFileName": "tam-voice-1.5.0.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/neta-u-2026-11-1/tam-voice-1.5.0.apk",
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "minAndroidVersion": 10,
+          "compatibility": { "vehicles": ["neta-u"], "require": {} },
+          "changelog": "NETA U tuned acoustic model.",
+          "updatedAt": "2026-11-13"
+        },
+        {
+          "variant": "neta-x",
+          "versionCode": 14,
+          "versionName": "1.4.0",
+          "releaseTag": "neta-x-2026-11-1",
+          "apkFileName": "tam-voice-1.4.0.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/neta-x-2026-11-1/tam-voice-1.4.0.apk",
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "minAndroidVersion": 11,
+          "compatibility": { "vehicles": ["neta-x"], "require": {} },
+          "changelog": "NETA X large-screen UI.",
+          "updatedAt": "2026-11-13"
+        },
+        {
+          "variant": "byd",
+          "versionCode": 12,
+          "versionName": "1.2.0",
+          "releaseTag": "byd-2026-11-1",
+          "apkFileName": "tam-voice-1.2.0.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/byd-2026-11-1/tam-voice-1.2.0.apk",
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "minAndroidVersion": 11,
+          "compatibility": { "vehicles": ["byd-han"], "require": {} },
+          "changelog": "BYD compatibility build.",
+          "updatedAt": "2026-11-13"
+        }
+      ]
+    },
+    {
+      "id": "tam-launcher",
+      "name": "TAM Launcher",
+      "description": "Default TAM OS home launcher. Opens on every TAM OS vehicle.",
+      "packageName": "com.tam.launcher",
+      "category": "system",
+      "tags": ["launcher", "home", "core"],
+      "enabled": true,
+      "compatibility": {
+        "allVehicles": true,
+        "vehicles": [],
+        "require": {
+          "tags": ["tam-os"]
+        },
+        "prefer": {},
+        "exclude": {
+          "vehicles": [],
+          "tags": []
+        }
+      },
+      "releases": [
+        {
+          "variant": "universal",
+          "versionCode": 20,
+          "versionName": "2.0.0",
+          "releaseTag": "universal-2026-11-1",
+          "apkFileName": "tam-launcher-2.0.0.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11-1/tam-launcher-2.0.0.apk",
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "minAndroidVersion": 10,
+          "compatibility": { "require": { "tags": ["tam-os"] } },
+          "changelog": "Universal launcher for all TAM OS vehicles.",
+          "updatedAt": "2026-11-13"
+        }
+      ]
+    },
+    {
+      "id": "tam-maps",
+      "name": "TAM Maps",
+      "description": "3D navigation that requires a high-end chipset (SA8295).",
+      "packageName": "com.tam.maps",
+      "category": "navigation",
+      "tags": ["maps", "navigation", "3d"],
+      "enabled": true,
+      "compatibility": {
+        "allVehicles": true,
+        "vehicles": [],
+        "require": {
+          "chipset": ["sa8295"],
+          "minAndroidVersion": 11
+        },
+        "prefer": {},
+        "exclude": {
+          "vehicles": [],
+          "tags": []
+        }
+      },
+      "releases": [
+        {
+          "variant": "sa8295",
+          "versionCode": 8,
+          "versionName": "0.8.0",
+          "releaseTag": "neta-x-2026-11-1",
+          "apkFileName": "tam-maps-0.8.0.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/neta-x-2026-11-1/tam-maps-0.8.0.apk",
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "minAndroidVersion": 11,
+          "compatibility": { "require": { "chipset": ["sa8295"] } },
+          "changelog": "Beta 3D navigation for SA8295 units.",
+          "updatedAt": "2026-11-13"
+        }
+      ]
+    },
+    {
+      "id": "tam-music",
+      "name": "TAM Music",
+      "description": "Local and streaming music player (temporarily disabled).",
+      "packageName": "com.tam.music",
+      "category": "media",
+      "tags": ["music", "audio"],
+      "enabled": false,
+      "compatibility": {
+        "allVehicles": true,
+        "vehicles": [],
+        "require": {},
+        "prefer": {},
+        "exclude": { "vehicles": [], "tags": [] }
+      },
+      "releases": [
+        {
+          "variant": "universal",
+          "versionCode": 2,
+          "versionName": "0.2.0",
+          "releaseTag": "universal-2026-11-1",
+          "apkFileName": "tam-music-0.2.0.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11-1/tam-music-0.2.0.apk",
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "minAndroidVersion": 10,
+          "compatibility": { "require": {} },
+          "changelog": "Early preview. Disabled until stable.",
+          "updatedAt": "2026-11-13"
+        }
+      ]
+    }
+  ]
+}

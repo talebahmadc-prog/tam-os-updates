@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-13",
+  "vehicles": [
+    {
+      "id": "neta-u",
+      "name": "NETA U",
+      "brand": "NETA",
+      "model": "U / U-II",
+      "androidVersion": 10,
+      "hardware": {
+        "chipset": "sa8155",
+        "soc": "Qualcomm SA8155P",
+        "ramMb": 4096,
+        "screenInches": 15.6
+      },
+      "tags": ["neta-u", "neta", "qualcomm", "sa8155", "android-10", "tam-os"]
+    },
+    {
+      "id": "neta-x",
+      "name": "NETA X",
+      "brand": "NETA",
+      "model": "X",
+      "androidVersion": 11,
+      "hardware": {
+        "chipset": "sa8295",
+        "soc": "Qualcomm SA8295P",
+        "ramMb": 8192,
+        "screenInches": 17.6
+      },
+      "tags": ["neta-x", "neta", "qualcomm", "sa8295", "android-11", "tam-os"]
+    },
+    {
+      "id": "neta-v",
+      "name": "NETA V",
+      "brand": "NETA",
+      "model": "V / V-II",
+      "androidVersion": 10,
+      "hardware": {
+        "chipset": "mediatek",
+        "soc": "MediaTek MT8666",
+        "ramMb": 3072,
+        "screenInches": 13.0
+      },
+      "tags": ["neta-v", "neta", "mediatek", "android-10", "tam-os"]
+    },
+    {
+      "id": "byd-han",
+      "name": "BYD Han",
+      "brand": "BYD",
+      "model": "Han EV",
+      "androidVersion": 11,
+      "hardware": {
+        "chipset": "sa8155",
+        "soc": "Qualcomm SA8155P",
+        "ramMb": 6144,
+        "screenInches": 15.6
+      },
+      "tags": ["byd", "byd-han", "qualcomm", "sa8155", "android-11"]
+    },
+    {
+      "id": "generic-other",
+      "name": "Generic / Other Vehicle",
+      "brand": "Other",
+      "model": "Unknown",
+      "androidVersion": 10,
+      "hardware": {
+        "chipset": "unknown",
+        "soc": "Unknown",
+        "ramMb": 2048,
+        "screenInches": 10.0
+      },
+      "tags": ["other-vehicles"]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-13",
+  "categories": [
+    {
+      "id": "media",
+      "name": "Media & Entertainment",
+      "description": "Video, music and streaming applications.",
+      "icon": "play"
+    },
+    {
+      "id": "navigation",
+      "name": "Navigation",
+      "description": "Maps, routing and navigation applications.",
+      "icon": "map"
+    },
+    {
+      "id": "system",
+      "name": "System",
+      "description": "Launchers and core TAM OS system applications.",
+      "icon": "cog"
+    },
+    {
+      "id": "tools",
+      "name": "Tools & Utilities",
+      "description": "Utility and productivity applications.",
+      "icon": "wrench"
+    },
+    {
+      "id": "communication",
+      "name": "Communication",
+      "description": "Messaging, calls and connectivity.",
+      "icon": "chat"
+    },
+    {
+      "id": "games",
+      "name": "Games",
+      "description": "Games optimized for the vehicle head unit.",
+      "icon": "gamepad"
+    }
+  ]
+}

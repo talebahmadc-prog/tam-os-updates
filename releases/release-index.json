@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-11-13",
+  "releasesBaseUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download",
+  "releases": [
+    {
+      "tag": "neta-u-2026-11-1",
+      "name": "NETA U apps 2026-11",
+      "vehicles": ["neta-u"],
+      "assets": [
+        {
+          "appId": "youtube",
+          "fileName": "tam-youtube-1.5.0.apk",
+          "versionName": "1.5.0",
+          "versionCode": 5,
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/neta-u-2026-11-1/tam-youtube-1.5.0.apk"
+        },
+        {
+          "appId": "tam-voice",
+          "fileName": "tam-voice-1.5.0.apk",
+          "versionName": "1.5.0",
+          "versionCode": 15,
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/neta-u-2026-11-1/tam-voice-1.5.0.apk"
+        }
+      ]
+    },
+    {
+      "tag": "neta-x-2026-11-1",
+      "name": "NETA X apps 2026-11",
+      "vehicles": ["neta-x"],
+      "assets": [
+        {
+          "appId": "tam-voice",
+          "fileName": "tam-voice-1.4.0.apk",
+          "versionName": "1.4.0",
+          "versionCode": 14,
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/neta-x-2026-11-1/tam-voice-1.4.0.apk"
+        },
+        {
+          "appId": "tam-maps",
+          "fileName": "tam-maps-0.8.0.apk",
+          "versionName": "0.8.0",
+          "versionCode": 8,
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/neta-x-2026-11-1/tam-maps-0.8.0.apk"
+        }
+      ]
+    },
+    {
+      "tag": "byd-2026-11-1",
+      "name": "BYD apps 2026-11",
+      "vehicles": ["byd-han"],
+      "assets": [
+        {
+          "appId": "youtube",
+          "fileName": "tam-youtube-1.2.0.apk",
+          "versionName": "1.2.0",
+          "versionCode": 3,
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/byd-2026-11-1/tam-youtube-1.2.0.apk"
+        },
+        {
+          "appId": "tam-voice",
+          "fileName": "tam-voice-1.2.0.apk",
+          "versionName": "1.2.0",
+          "versionCode": 12,
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/byd-2026-11-1/tam-voice-1.2.0.apk"
+        }
+      ]
+    },
+    {
+      "tag": "universal-2026-11-1",
+      "name": "Universal TAM OS apps 2026-11",
+      "vehicles": [],
+      "assets": [
+        {
+          "appId": "tam-launcher",
+          "fileName": "tam-launcher-2.0.0.apk",
+          "versionName": "2.0.0",
+          "versionCode": 20,
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11-1/tam-launcher-2.0.0.apk"
+        },
+        {
+          "appId": "tam-music",
+          "fileName": "tam-music-0.2.0.apk",
+          "versionName": "0.2.0",
+          "versionCode": 2,
+          "published": false,
+          "sha256": "PENDING",
+          "sizeBytes": 0,
+          "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11-1/tam-music-0.2.0.apk"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/talebahmadc-prog/tam-os-updates/main/schema/app.schema.json",
+  "title": "TAM OS apps.json",
+  "type": "object",
+  "required": ["schemaVersion", "apps"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "type": "integer", "minimum": 1 },
+    "updatedAt": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "apps": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/app" }
+    }
+  },
+  "$defs": {
+    "tag": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "compatibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "allVehicles": { "type": "boolean" },
+        "vehicles": { "type": "array", "items": { "$ref": "#/$defs/tag" } },
+        "require": { "$ref": "#/$defs/criteria" },
+        "prefer": { "$ref": "#/$defs/criteria" },
+        "exclude": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "vehicles": { "type": "array", "items": { "$ref": "#/$defs/tag" } },
+            "tags": { "type": "array", "items": { "$ref": "#/$defs/tag" } }
+          }
+        }
+      }
+    },
+    "criteria": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "chipset": { "type": "array", "items": { "$ref": "#/$defs/tag" } },
+        "minAndroidVersion": { "type": "integer", "minimum": 1 },
+        "tags": { "type": "array", "items": { "$ref": "#/$defs/tag" } }
+      }
+    },
+    "release": {
+      "type": "object",
+      "required": ["variant", "versionCode", "versionName", "releaseTag", "apkUrl", "sha256", "published"],
+      "additionalProperties": false,
+      "properties": {
+        "variant": { "type": "string" },
+        "versionCode": { "type": "integer", "minimum": 1 },
+        "versionName": { "type": "string" },
+        "releaseTag": { "type": "string" },
+        "apkFileName": { "type": "string" },
+        "apkUrl": { "type": "string", "format": "uri", "pattern": "^https://" },
+        "published": { "type": "boolean" },
+        "sha256": { "type": "string", "pattern": "^([a-f0-9]{64}|PENDING)$" },
+        "sizeBytes": { "type": "integer", "minimum": 0 },
+        "minAndroidVersion": { "type": "integer", "minimum": 1 },
+        "compatibility": { "$ref": "#/$defs/compatibility" },
+        "changelog": { "type": "string" },
+        "updatedAt": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }
+      }
+    },
+    "app": {
+      "type": "object",
+      "required": ["id", "name", "packageName", "category", "enabled", "compatibility", "releases"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "packageName": { "type": "string", "pattern": "^[a-zA-Z][a-zA-Z0-9_]*(\\.[a-zA-Z][a-zA-Z0-9_]*)+$" },
+        "category": { "$ref": "#/$defs/tag" },
+        "tags": { "type": "array", "items": { "$ref": "#/$defs/tag" } },
+        "enabled": { "type": "boolean" },
+        "compatibility": { "$ref": "#/$defs/compatibility" },
+        "releases": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/release" } }
+      }
+    }
+  }
+}

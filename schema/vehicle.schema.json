@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/talebahmadc-prog/tam-os-updates/main/schema/vehicle.schema.json",
+  "title": "TAM OS vehicles.json",
+  "type": "object",
+  "required": ["schemaVersion", "vehicles"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "type": "integer", "minimum": 1 },
+    "updatedAt": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "vehicles": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/vehicle" }
+    }
+  },
+  "$defs": {
+    "tag": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "vehicle": {
+      "type": "object",
+      "required": ["id", "name", "brand", "androidVersion", "tags"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+        "name": { "type": "string" },
+        "brand": { "type": "string" },
+        "model": { "type": "string" },
+        "androidVersion": { "type": "integer", "minimum": 1 },
+        "hardware": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "chipset": { "$ref": "#/$defs/tag" },
+            "soc": { "type": "string" },
+            "ramMb": { "type": "integer", "minimum": 0 },
+            "screenInches": { "type": "number", "minimum": 0 }
+          }
+        },
+        "tags": { "type": "array", "items": { "$ref": "#/$defs/tag" } }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+# APKs are hosted as GitHub Release assets, never committed to git.
+*.apk
+*.aab
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.log
+
+# Node
+node_modules/

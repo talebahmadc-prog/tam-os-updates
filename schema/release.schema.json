@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/talebahmadc-prog/tam-os-updates/main/schema/release.schema.json",
+  "title": "TAM OS release-index.json",
+  "type": "object",
+  "required": ["schemaVersion", "releases"],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": { "type": "integer", "minimum": 1 },
+    "updatedAt": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+    "releasesBaseUrl": { "type": "string", "pattern": "^https://" },
+    "releases": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/release" }
+    }
+  },
+  "$defs": {
+    "tag": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$" },
+    "asset": {
+      "type": "object",
+      "required": ["appId", "fileName", "versionName", "versionCode", "published", "sha256", "url"],
+      "additionalProperties": false,
+      "properties": {
+        "appId": { "$ref": "#/$defs/tag" },
+        "fileName": { "type": "string" },
+        "versionName": { "type": "string" },
+        "versionCode": { "type": "integer", "minimum": 1 },
+        "published": { "type": "boolean" },
+        "sha256": { "type": "string", "pattern": "^([a-f0-9]{64}|PENDING)$" },
+        "sizeBytes": { "type": "integer", "minimum": 0 },
+        "url": { "type": "string", "pattern": "^https://" }
+      }
+    },
+    "release": {
+      "type": "object",
+      "required": ["tag", "assets"],
+      "additionalProperties": false,
+      "properties": {
+        "tag": { "type": "string" },
+        "name": { "type": "string" },
+        "vehicles": { "type": "array", "items": { "$ref": "#/$defs/tag" } },
+        "assets": { "type": "array", "items": { "$ref": "#/$defs/asset" } }
+      }
+    }
+  }
+}
