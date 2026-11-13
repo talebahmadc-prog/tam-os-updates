@@ -177,7 +177,7 @@ node tools/compat.mjs neta-x
 
 A static, token-free web UI to decide **whether an app opens on all vehicles or on specific vehicles**:
 
-- Select an app → choose **All TAM OS vehicles** or **Specific vehicles only** (checkboxes).
+- Select an app → choose **All vehicles** or **Specific vehicles only** (checkboxes).
 - Add mandatory requirements (chipset / min Android / required tags).
 - See a **live preview** of exactly which vehicles the app opens on and which APK variant each gets.
 - A **compatibility matrix** (apps × vehicles).

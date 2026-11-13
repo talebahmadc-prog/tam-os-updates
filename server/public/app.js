@@ -215,7 +215,7 @@ function editApp(id) {
   ed.innerHTML = `
     <label class="row"><input type="checkbox" id="e-enabled" ${app.enabled?'checked':''}/> <b>Enabled</b></label>
     <div class="row" style="margin:8px 0;">
-      <label><input type="radio" name="e-scope" id="e-all" ${c.allVehicles?'checked':''}/> All TAM OS vehicles</label>
+      <label><input type="radio" name="e-scope" id="e-all" ${c.allVehicles?'checked':''}/> All vehicles</label>
       <label><input type="radio" name="e-scope" id="e-spec" ${!c.allVehicles?'checked':''}/> Specific vehicles</label>
     </div>
     <div class="checks" id="e-vehs">${(DATA.vehicles.vehicles||[]).map((v)=>`<label><input type="checkbox" class="e-veh" value="${esc(v.id)}" ${c.vehicles.includes(v.id)?'checked':''}/> ${esc(v.name)}</label>`).join("")}</div>

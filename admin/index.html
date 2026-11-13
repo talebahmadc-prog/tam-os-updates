@@ -255,7 +255,7 @@ function renderEditor() {
 
     <fieldset>
       <legend>Opens on</legend>
-      <label class="row"><input type="radio" name="scope" id="f-all" ${c.allVehicles?'checked':''}/> All TAM OS vehicles</label>
+      <label class="row"><input type="radio" name="scope" id="f-all" ${c.allVehicles?'checked':''}/> All vehicles</label>
       <label class="row"><input type="radio" name="scope" id="f-specific" ${!c.allVehicles?'checked':''}/> Specific vehicles only</label>
       <div id="vehBox" class="grid-checks" style="margin-top:8px;">
         ${vehicles.map(v => `<label class="row"><input type="checkbox" class="veh" value="${v.id}"
