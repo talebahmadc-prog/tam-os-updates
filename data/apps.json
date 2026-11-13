@@ -307,7 +307,7 @@
         "music",
         "audio"
       ],
-      "enabled": false,
+      "enabled": true,
       "compatibility": {
         "allVehicles": true,
         "vehicles": [],
