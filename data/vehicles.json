@@ -3,101 +3,35 @@
   "updatedAt": "2026-11-13",
   "vehicles": [
     {
-      "id": "neta-u",
-      "name": "NETA U",
+      "id": "neta-u-large-2022",
+      "name": "NETA U Large Screen 2022",
       "brand": "NETA",
-      "model": "U / U-II",
+      "model": "U Large Screen 2022",
       "androidVersion": 10,
       "hardware": {
-        "chipset": "sa8155",
-        "soc": "Qualcomm SA8155P",
-        "ramMb": 4096,
-        "screenInches": 15.6
+        "chipset": "sa8155"
       },
       "tags": [
+        "neta",
+        "tam-os",
         "neta-u",
-        "neta",
-        "qualcomm",
-        "sa8155",
-        "android-10",
-        "tam-os"
+        "neta-u-large-2022"
       ]
     },
     {
-      "id": "neta-x",
-      "name": "NETA X",
+      "id": "neta-u-large-2023",
+      "name": "NETA U Large Screen 2023",
       "brand": "NETA",
-      "model": "X",
+      "model": "U Large Screen 2023",
       "androidVersion": 11,
       "hardware": {
-        "chipset": "sa8295",
-        "soc": "Qualcomm SA8295P",
-        "ramMb": 8192,
-        "screenInches": 17.6
+        "chipset": "sa8155"
       },
       "tags": [
-        "neta-x",
         "neta",
-        "qualcomm",
-        "sa8295",
-        "android-11",
-        "tam-os"
-      ]
-    },
-    {
-      "id": "neta-v",
-      "name": "NETA V",
-      "brand": "NETA",
-      "model": "V / V-II",
-      "androidVersion": 10,
-      "hardware": {
-        "chipset": "mediatek",
-        "soc": "MediaTek MT8666",
-        "ramMb": 3072,
-        "screenInches": 13
-      },
-      "tags": [
-        "neta-v",
-        "neta",
-        "mediatek",
-        "android-10",
-        "tam-os"
-      ]
-    },
-    {
-      "id": "byd-han",
-      "name": "BYD Han",
-      "brand": "BYD",
-      "model": "Han EV",
-      "androidVersion": 11,
-      "hardware": {
-        "chipset": "sa8155",
-        "soc": "Qualcomm SA8155P",
-        "ramMb": 6144,
-        "screenInches": 15.6
-      },
-      "tags": [
-        "byd",
-        "byd-han",
-        "qualcomm",
-        "sa8155",
-        "android-11"
-      ]
-    },
-    {
-      "id": "generic-other",
-      "name": "Generic / Other Vehicle",
-      "brand": "Other",
-      "model": "Unknown",
-      "androidVersion": 10,
-      "hardware": {
-        "chipset": "unknown",
-        "soc": "Unknown",
-        "ramMb": 2048,
-        "screenInches": 10
-      },
-      "tags": [
-        "other-vehicles"
+        "tam-os",
+        "neta-u",
+        "neta-u-large-2023"
       ]
     },
     {
@@ -109,7 +43,162 @@
       "hardware": {
         "chipset": "unknown"
       },
-      "tags": []
+      "tags": [
+        "neta",
+        "tam-os",
+        "neta-u",
+        "neta-u-small-screen"
+      ]
+    },
+    {
+      "id": "neta-v",
+      "name": "NETA V",
+      "brand": "NETA",
+      "model": "V",
+      "androidVersion": 10,
+      "hardware": {
+        "chipset": "mediatek"
+      },
+      "tags": [
+        "neta",
+        "tam-os",
+        "neta-v"
+      ]
+    },
+    {
+      "id": "neta-aya",
+      "name": "NETA Aya",
+      "brand": "NETA",
+      "model": "Aya",
+      "androidVersion": 11,
+      "hardware": {
+        "chipset": "unknown"
+      },
+      "tags": [
+        "neta",
+        "tam-os",
+        "neta-aya"
+      ]
+    },
+    {
+      "id": "neta-x",
+      "name": "NETA X",
+      "brand": "NETA",
+      "model": "X",
+      "androidVersion": 11,
+      "hardware": {
+        "chipset": "sa8295"
+      },
+      "tags": [
+        "neta",
+        "tam-os",
+        "neta-x"
+      ]
+    },
+    {
+      "id": "neta-s",
+      "name": "NETA S",
+      "brand": "NETA",
+      "model": "S",
+      "androidVersion": 12,
+      "hardware": {
+        "chipset": "unknown"
+      },
+      "tags": [
+        "neta",
+        "tam-os",
+        "neta-s"
+      ]
+    },
+    {
+      "id": "neta-gt",
+      "name": "NETA GT",
+      "brand": "NETA",
+      "model": "GT",
+      "androidVersion": 11,
+      "hardware": {
+        "chipset": "unknown"
+      },
+      "tags": [
+        "neta",
+        "tam-os",
+        "neta-gt"
+      ]
+    },
+    {
+      "id": "byd-dilink-2-0",
+      "name": "BYD DiLink 2.0",
+      "brand": "BYD",
+      "model": "DiLink 2.0",
+      "androidVersion": 9,
+      "hardware": {
+        "chipset": "unknown"
+      },
+      "tags": [
+        "byd",
+        "dilink",
+        "byd-dilink-2-0"
+      ]
+    },
+    {
+      "id": "byd-dilink-3-0",
+      "name": "BYD DiLink 3.0",
+      "brand": "BYD",
+      "model": "DiLink 3.0",
+      "androidVersion": 10,
+      "hardware": {
+        "chipset": "unknown"
+      },
+      "tags": [
+        "byd",
+        "dilink",
+        "byd-dilink-3-0"
+      ]
+    },
+    {
+      "id": "byd-dilink-4-0",
+      "name": "BYD DiLink 4.0",
+      "brand": "BYD",
+      "model": "DiLink 4.0",
+      "androidVersion": 11,
+      "hardware": {
+        "chipset": "unknown"
+      },
+      "tags": [
+        "byd",
+        "dilink",
+        "byd-dilink-4-0"
+      ]
+    },
+    {
+      "id": "byd-dilink-5-0",
+      "name": "BYD DiLink 5.0",
+      "brand": "BYD",
+      "model": "DiLink 5.0",
+      "androidVersion": 12,
+      "hardware": {
+        "chipset": "unknown"
+      },
+      "tags": [
+        "byd",
+        "dilink",
+        "byd-dilink-5-0"
+      ]
+    },
+    {
+      "id": "byd-dilink-6-0",
+      "name": "BYD DiLink 6.0",
+      "brand": "BYD",
+      "model": "DiLink 6.0",
+      "androidVersion": 13,
+      "hardware": {
+        "chipset": "unknown"
+      },
+      "tags": [
+        "byd",
+        "dilink",
+        "byd-dilink-6-0"
+      ]
     }
   ]
 }
