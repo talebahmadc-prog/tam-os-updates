@@ -313,6 +313,23 @@
           "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/apps-import-2026-11/Y.keyboard.apk"
         }
       ]
+    },
+    {
+      "tag": "universal-2026-11",
+      "name": "universal-2026-11",
+      "vehicles": [],
+      "assets": [
+        {
+          "appId": "cm-aptoide-pt",
+          "fileName": "aptoide.apk",
+          "versionName": "10.0.0",
+          "versionCode": 13001,
+          "published": true,
+          "sha256": "cd3a042bb2135040024cdd4e7b0dfd5f2db950e6fc111f529b5e5887fbf7fc47",
+          "sizeBytes": 13074189,
+          "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11/aptoide.apk"
+        }
+      ]
     }
   ]
 }
