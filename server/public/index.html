@@ -44,30 +44,44 @@
 
     <!-- UPLOAD -->
     <section data-pane="upload">
-      <div class="card"><div class="hd">Upload / update an app APK</div><div class="bd">
-        <div class="grid2">
-          <label class="field"><span>App</span>
-            <select id="up-app"><option value="__new__">➕ New app…</option></select></label>
-          <label class="field" id="up-newid-wrap"><span>New app id (kebab-case)</span><input id="up-newid" placeholder="e.g. tam-radio" /></label>
-          <label class="field"><span>Display name</span><input id="up-name" placeholder="TAM Radio" /></label>
-          <label class="field"><span>Package name</span><input id="up-pkg" placeholder="com.tam.radio" /></label>
-          <label class="field"><span>Category</span><select id="up-cat"></select></label>
-          <label class="field"><span>Variant label</span><input id="up-variant" placeholder="neta-u / universal" value="universal" /></label>
-          <label class="field"><span>Version name</span><input id="up-vname" placeholder="1.0.0" /></label>
-          <label class="field"><span>Version code</span><input id="up-vcode" type="number" min="1" placeholder="1" /></label>
-          <label class="field"><span>Release tag</span><input id="up-tag" placeholder="universal-2026-11-1" /></label>
-          <label class="field"><span>Min Android version</span><input id="up-minos" type="number" min="1" placeholder="10" /></label>
-        </div>
-        <fieldset style="border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin:6px 0 12px;">
-          <legend class="muted" style="font-size:12px">This APK is for</legend>
+      <div class="card"><div class="hd">Upload an app</div><div class="bd">
+        <label class="dropzone" id="up-drop" for="up-file">
+          <input id="up-file" type="file" accept=".apk,application/vnd.android.package-archive" hidden />
+          <div class="dz-icon">⬆</div>
+          <div class="dz-main">Choose an APK file</div>
+          <div class="dz-sub muted">Package name and version fill in automatically</div>
+        </label>
+        <div id="up-detected" class="detected hidden"></div>
+
+        <label class="field" id="up-name-wrap" style="margin-top:14px;"><span>App name</span>
+          <input id="up-name" placeholder="fills in from the APK" /></label>
+
+        <fieldset class="scope">
+          <legend>Opens on</legend>
           <label class="row"><input type="radio" name="up-scope" id="up-all" checked /> All TAM OS vehicles</label>
           <label class="row"><input type="radio" name="up-scope" id="up-spec" /> Specific vehicles</label>
-          <div class="checks" id="up-vehchecks" style="margin-top:6px;"></div>
+          <div class="checks" id="up-vehchecks"></div>
         </fieldset>
-        <label class="field"><span>Changelog</span><input id="up-changelog" placeholder="What changed" /></label>
-        <label class="field"><span>APK file</span><input id="up-file" type="file" accept=".apk,application/vnd.android.package-archive" /></label>
-        <div class="row"><button class="primary" id="up-submit">Upload to GitHub Releases</button>
-          <small class="hint">Large files (&gt;~90 MB) may exceed the Worker limit — use the bulk-upload script for those.</small></div>
+
+        <details id="up-adv">
+          <summary>Advanced (optional)</summary>
+          <div class="grid2" style="margin-top:12px;">
+            <label class="field"><span>App id</span><input id="up-newid" placeholder="auto from package" /></label>
+            <label class="field"><span>Package name</span><input id="up-pkg" placeholder="auto from APK" /></label>
+            <label class="field"><span>Category</span><select id="up-cat"></select></label>
+            <label class="field"><span>Variant</span><input id="up-variant" value="universal" /></label>
+            <label class="field"><span>Version name</span><input id="up-vname" placeholder="auto" /></label>
+            <label class="field"><span>Version code</span><input id="up-vcode" type="number" min="1" placeholder="auto" /></label>
+            <label class="field"><span>Release tag</span><input id="up-tag" placeholder="auto" /></label>
+            <label class="field"><span>Min Android version</span><input id="up-minos" type="number" min="1" placeholder="optional" /></label>
+          </div>
+          <label class="field"><span>Changelog</span><input id="up-changelog" placeholder="What changed" /></label>
+        </details>
+
+        <div class="row" style="margin-top:14px;">
+          <button class="primary" id="up-submit" disabled>Upload</button>
+          <small class="hint" id="up-hint">Pick an APK to begin.</small>
+        </div>
         <div id="up-result" style="margin-top:10px;"></div>
       </div></div>
     </section>
@@ -118,6 +132,7 @@
   </main>
 </div>
 
+<script src="/apk.js"></script>
 <script src="/app.js"></script>
 </body>
 </html>

@@ -319,6 +319,7 @@ async function api(req, env, path) {
   // ---- upsert a vehicle ----
   if (path === "/api/vehicles" && method === "POST") {
     const v = await req.json();
+    if (v && v.id) v.id = slugId(v.id);
     if (!v.id || !v.name) return json({ error: "vehicle id and name required" }, 400);
     const f = await gh.getFile("data/vehicles.json");
     const doc = f.data || { schemaVersion: 1, vehicles: [] };
@@ -343,6 +344,7 @@ async function api(req, env, path) {
   // ---- upsert app metadata / compatibility (no file) ----
   if (path === "/api/apps" && method === "POST") {
     const body = await req.json();
+    if (body && body.id) body.id = slugId(body.id);
     if (!body.id) return json({ error: "app id required" }, 400);
     const f = await gh.getFile("data/apps.json");
     const doc = f.data || { schemaVersion: 1, apps: [] };
@@ -377,7 +379,7 @@ async function api(req, env, path) {
   if (path === "/api/upload" && method === "POST") {
     const form = await req.formData();
     const file = form.get("apk");
-    const appId = form.get("appId");
+    const appId = slugId(form.get("appId") || "");
     if (!file || typeof file === "string") return json({ error: "apk file required" }, 400);
     if (!appId) return json({ error: "appId required" }, 400);
     const variant = form.get("variant") || "universal";
@@ -501,3 +503,4 @@ function hexToBytes(hex) {
   return out;
 }
 function safeJson(s) { if (!s) return null; try { return JSON.parse(s); } catch { return null; } }
+function slugId(s) { return String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").replace(/-+/g, "-"); }

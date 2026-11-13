@@ -93,59 +93,93 @@ function vehicleCheckboxes(containerSel, selected = []) {
     box.appendChild(lbl);
   }
 }
+function slugify(s) { return String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").replace(/-+/g, "-"); }
+function titleCase(s) { return String(s || "").split(/[-_.\s]/).filter(Boolean).map((w) => w[0].toUpperCase() + w.slice(1)).join(" "); }
+
 function renderUploadForm() {
-  const sel = $("#up-app"); sel.innerHTML = `<option value="__new__">➕ New app…</option>`;
-  for (const a of DATA.apps.apps || []) sel.appendChild(el("option", { value: a.id, textContent: `${a.name} (${a.id})` }));
   const cat = $("#up-cat"); cat.innerHTML = "";
   for (const c of DATA.categories.categories || []) cat.appendChild(el("option", { value: c.id, textContent: c.name }));
   vehicleCheckboxes("#up-vehchecks");
-  sel.onchange = () => {
-    const isNew = sel.value === "__new__";
-    $("#up-newid-wrap").style.display = isNew ? "" : "none";
-    const a = (DATA.apps.apps || []).find((x) => x.id === sel.value);
-    if (a) { $("#up-name").value = a.name || ""; $("#up-pkg").value = a.packageName || ""; $("#up-cat").value = a.category || ""; }
-  };
-  sel.onchange();
   const toggleSpec = () => $("#up-vehchecks").style.opacity = $("#up-all").checked ? ".45" : "1";
   $("#up-all").onchange = toggleSpec; $("#up-spec").onchange = toggleSpec; toggleSpec();
+  $("#up-file").onchange = (e) => onApkChosen(e.target.files[0]);
+  // drag & drop onto the dropzone
+  const dz = $("#up-drop");
+  dz.addEventListener("dragover", (e) => { e.preventDefault(); dz.classList.add("drag"); });
+  dz.addEventListener("dragleave", () => dz.classList.remove("drag"));
+  dz.addEventListener("drop", (e) => {
+    e.preventDefault(); dz.classList.remove("drag");
+    const f = e.dataTransfer.files[0];
+    if (f) { $("#up-file").files = e.dataTransfer.files; onApkChosen(f); }
+  });
+}
+
+async function onApkChosen(file) {
+  if (!file) return;
+  const det = $("#up-detected");
+  $("#up-drop").querySelector(".dz-main").textContent = file.name;
+  det.classList.remove("hidden"); det.style.background = ""; det.innerHTML = "Reading the APK…";
+  $("#up-hint").textContent = "Reading APK…";
+  try {
+    const info = await window.TamApk.parseApk(file);
+    const pkg = info.packageName || "";
+    const existing = (DATA.apps.apps || []).find((a) => a.packageName && a.packageName === pkg);
+    $("#up-pkg").value = pkg;
+    $("#up-vname").value = info.versionName || "";
+    $("#up-vcode").value = info.versionCode || "";
+    $("#up-newid").value = existing ? existing.id : (slugify(pkg) || slugify(file.name.replace(/\.apk$/i, "")));
+    if (!$("#up-name").value) $("#up-name").value = existing ? existing.name : titleCase(pkg.split(".").slice(-1)[0] || file.name.replace(/\.apk$/i, ""));
+    if (existing && existing.category) $("#up-cat").value = existing.category;
+    det.innerHTML = `<div class="d-title">✓ ${existing ? "Updating " + esc(existing.name) : "New app detected"}</div>
+      <div class="d-row">Package <code>${esc(pkg || "—")}</code> · version <code>${esc(info.versionName || "—")}</code> (code ${esc(info.versionCode ?? "—")}) · ${(file.size / 1048576).toFixed(1)} MB</div>`;
+    $("#up-submit").disabled = false;
+    $("#up-hint").textContent = existing ? "Updates an existing app." : "Creates a new app.";
+  } catch (err) {
+    det.style.background = "var(--no-weak)";
+    det.innerHTML = `<div class="d-title" style="color:var(--no)">Couldn't read the APK automatically</div>
+      <div class="d-row">${esc(err.message)}. Open <b>Advanced</b> to fill the details manually, then upload.</div>`;
+    $("#up-submit").disabled = false;
+    $("#up-hint").textContent = "Fill details in Advanced, then upload.";
+  }
 }
 
 async function doUpload() {
-  const sel = $("#up-app");
-  const appId = sel.value === "__new__" ? $("#up-newid").value.trim() : sel.value;
   const file = $("#up-file").files[0];
-  if (!appId) return flash("App id is required", "err");
+  const appId = $("#up-newid").value.trim() || slugify($("#up-pkg").value.trim());
   if (!file) return flash("Choose an APK file", "err");
+  if (!appId) return flash("Could not determine the app id — set one in Advanced", "err");
 
   const allV = $("#up-all").checked;
   const chosen = [...document.querySelectorAll("#up-vehchecks input:checked")].map((x) => x.value);
+  if (!allV && chosen.length === 0) return flash("Pick at least one vehicle, or choose All", "err");
   const relCompat = allV ? {} : { vehicles: chosen };
   const appCompat = allV ? { allVehicles: true, vehicles: [], require: {} } : { allVehicles: false, vehicles: chosen, require: {} };
+  const variant = $("#up-variant").value.trim() || "universal";
 
   const fd = new FormData();
   fd.set("apk", file);
   fd.set("appId", appId);
   fd.set("name", $("#up-name").value.trim());
   fd.set("packageName", $("#up-pkg").value.trim());
-  fd.set("category", $("#up-cat").value);
-  fd.set("variant", $("#up-variant").value.trim() || "universal");
-  fd.set("versionName", $("#up-vname").value.trim() || "0.0.0");
+  fd.set("category", $("#up-cat").value || "tools");
+  fd.set("variant", variant);
+  fd.set("versionName", $("#up-vname").value.trim() || "1.0.0");
   fd.set("versionCode", $("#up-vcode").value || "1");
-  fd.set("releaseTag", $("#up-tag").value.trim() || `${$("#up-variant").value.trim() || "universal"}-${new Date().toISOString().slice(0,7)}`);
+  fd.set("releaseTag", $("#up-tag").value.trim() || `${variant}-${new Date().toISOString().slice(0, 7)}`);
   if ($("#up-minos").value) fd.set("minAndroidVersion", $("#up-minos").value);
   fd.set("changelog", $("#up-changelog").value.trim());
   fd.set("compatibility", JSON.stringify(relCompat));
   fd.set("appCompatibility", JSON.stringify(appCompat));
 
   const btn = $("#up-submit"); btn.disabled = true; btn.textContent = "Uploading…";
-  $("#up-result").innerHTML = `<div class="notice ok">Uploading ${esc(file.name)} (${(file.size/1048576).toFixed(1)} MB)…</div>`;
+  $("#up-result").innerHTML = `<div class="notice ok">Uploading ${esc(file.name)} (${(file.size / 1048576).toFixed(1)} MB)…</div>`;
   try {
     const r = await api("/api/upload", { method: "POST", form: fd });
-    $("#up-result").innerHTML = `<div class="notice ok">✓ Uploaded. SHA-256 ${r.sha256.slice(0,16)}… · ${(r.sizeBytes/1048576).toFixed(1)} MB<br><a href="${esc(r.apkUrl)}" target="_blank">${esc(r.apkUrl)}</a></div>`;
+    $("#up-result").innerHTML = `<div class="notice ok">✓ Uploaded. SHA-256 ${r.sha256.slice(0, 16)}… · ${(r.sizeBytes / 1048576).toFixed(1)} MB<br><a href="${esc(r.apkUrl)}" target="_blank">${esc(r.apkUrl)}</a></div>`;
     await reloadData();
   } catch (e) {
     $("#up-result").innerHTML = `<div class="notice err">✗ ${esc(e.message)}</div>`;
-  } finally { btn.disabled = false; btn.textContent = "Upload to GitHub Releases"; }
+  } finally { btn.disabled = false; btn.textContent = "Upload"; }
 }
 
 // ---- APPS ----

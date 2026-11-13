@@ -47,3 +47,22 @@ th, td { border-bottom:1px solid var(--border); padding:8px 10px; text-align:lef
 .checks label { display:flex; gap:7px; align-items:center; }
 code { background:var(--accent-weak); padding:1px 5px; border-radius:5px; }
 small.hint { color:var(--muted); }
+
+/* upload redesign */
+.dropzone { display:flex; flex-direction:column; align-items:center; gap:4px; text-align:center;
+  padding:26px 16px; border:2px dashed var(--border); border-radius:12px; cursor:pointer; transition:.15s;
+  background:var(--bg); }
+.dropzone:hover, .dropzone.drag { border-color:var(--accent); background:var(--accent-weak); }
+.dz-icon { font-size:26px; color:var(--accent); }
+.dz-main { font-weight:600; font-size:15px; }
+.dz-sub { font-size:12px; }
+.detected { margin-top:12px; padding:11px 14px; border-radius:10px; background:var(--ok-weak);
+  border:1px solid transparent; }
+.detected.hidden { display:none; }
+.detected .d-title { font-weight:600; color:var(--ok); margin-bottom:4px; }
+.detected .d-row { font-size:13px; color:var(--text); }
+.detected code { background:var(--panel); }
+fieldset.scope { border:1px solid var(--border); border-radius:10px; padding:12px 14px; margin:14px 0; }
+#up-adv { border:1px solid var(--border); border-radius:10px; padding:10px 14px; }
+#up-adv summary { cursor:pointer; color:var(--muted); font-size:13px; user-select:none; }
+#up-adv[open] summary { margin-bottom:4px; color:var(--text); }
