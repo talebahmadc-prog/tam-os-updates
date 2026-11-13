@@ -14,7 +14,14 @@
         "ramMb": 4096,
         "screenInches": 15.6
       },
-      "tags": ["neta-u", "neta", "qualcomm", "sa8155", "android-10", "tam-os"]
+      "tags": [
+        "neta-u",
+        "neta",
+        "qualcomm",
+        "sa8155",
+        "android-10",
+        "tam-os"
+      ]
     },
     {
       "id": "neta-x",
@@ -28,7 +35,14 @@
         "ramMb": 8192,
         "screenInches": 17.6
       },
-      "tags": ["neta-x", "neta", "qualcomm", "sa8295", "android-11", "tam-os"]
+      "tags": [
+        "neta-x",
+        "neta",
+        "qualcomm",
+        "sa8295",
+        "android-11",
+        "tam-os"
+      ]
     },
     {
       "id": "neta-v",
@@ -40,9 +54,15 @@
         "chipset": "mediatek",
         "soc": "MediaTek MT8666",
         "ramMb": 3072,
-        "screenInches": 13.0
+        "screenInches": 13
       },
-      "tags": ["neta-v", "neta", "mediatek", "android-10", "tam-os"]
+      "tags": [
+        "neta-v",
+        "neta",
+        "mediatek",
+        "android-10",
+        "tam-os"
+      ]
     },
     {
       "id": "byd-han",
@@ -56,7 +76,13 @@
         "ramMb": 6144,
         "screenInches": 15.6
       },
-      "tags": ["byd", "byd-han", "qualcomm", "sa8155", "android-11"]
+      "tags": [
+        "byd",
+        "byd-han",
+        "qualcomm",
+        "sa8155",
+        "android-11"
+      ]
     },
     {
       "id": "generic-other",
@@ -68,9 +94,22 @@
         "chipset": "unknown",
         "soc": "Unknown",
         "ramMb": 2048,
-        "screenInches": 10.0
+        "screenInches": 10
       },
-      "tags": ["other-vehicles"]
+      "tags": [
+        "other-vehicles"
+      ]
+    },
+    {
+      "id": "NETA U Small Screen",
+      "name": "NETA U Small Screen",
+      "brand": "NETA",
+      "model": "U Small Screen",
+      "androidVersion": 10,
+      "hardware": {
+        "chipset": "unknown"
+      },
+      "tags": []
     }
   ]
 }
