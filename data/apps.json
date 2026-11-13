@@ -747,6 +747,35 @@
           "updatedAt": "2026-11-13"
         }
       ]
+    },
+    {
+      "id": "cm-aptoide-pt",
+      "name": "aptoide",
+      "packageName": "cm.aptoide.pt",
+      "category": "media",
+      "tags": [],
+      "enabled": true,
+      "compatibility": {
+        "allVehicles": true,
+        "vehicles": [],
+        "require": {}
+      },
+      "releases": [
+        {
+          "variant": "universal",
+          "versionCode": 13001,
+          "versionName": "10.0.0",
+          "releaseTag": "universal-2026-11",
+          "apkFileName": "aptoide.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11/aptoide.apk",
+          "published": true,
+          "sha256": "cd3a042bb2135040024cdd4e7b0dfd5f2db950e6fc111f529b5e5887fbf7fc47",
+          "sizeBytes": 13074189,
+          "compatibility": {},
+          "changelog": "",
+          "updatedAt": "2026-11-13"
+        }
+      ]
     }
   ]
 }
