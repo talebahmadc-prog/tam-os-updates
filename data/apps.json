@@ -349,7 +349,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -380,7 +384,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -411,7 +419,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -442,7 +454,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -473,7 +489,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -504,7 +524,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -535,7 +559,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -566,7 +594,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -597,7 +629,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -628,7 +664,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -690,7 +730,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -721,7 +765,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -752,7 +800,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -783,7 +835,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -814,7 +870,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
@@ -845,7 +905,11 @@
       "enabled": true,
       "compatibility": {
         "allVehicles": false,
-        "vehicles": [],
+        "vehicles": [
+          "neta-u",
+          "neta-x",
+          "neta-v"
+        ],
         "require": {}
       },
       "releases": [
