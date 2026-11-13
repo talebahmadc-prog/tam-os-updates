@@ -18,7 +18,8 @@
     "GITHUB_OWNER": "talebahmadc-prog",
     "GITHUB_REPO": "tam-os-updates",
     "GITHUB_BRANCH": "main",
-    "SESSION_TTL_SECONDS": "43200"
+    "SESSION_TTL_SECONDS": "43200",
+    "LICENSING_URL": "https://neta-licensing.netau.workers.dev"
   }
   // Secret (never in vars): the GitHub token used to commit JSON and upload
   // APKs to Releases. Set it with:

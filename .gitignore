@@ -1,3 +1,10 @@
+# Secrets — never commit
+token.txt
+*.token
+*.pat
+.env
+.dev.vars
+
 # APKs are hosted as GitHub Release assets, never committed to git.
 *.apk
 *.aab

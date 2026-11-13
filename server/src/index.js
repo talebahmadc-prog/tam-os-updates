@@ -77,15 +77,27 @@ async function currentUser(req, env) {
   if (!token) return null;
   const sid = await sha256hex(token);
   const row = await env.DB.prepare(
-    `SELECT s.id sid, s.csrf, s.expires_at, u.id, u.username, u.role, u.active
-       FROM sessions s JOIN users u ON u.id = s.user_id WHERE s.id = ?`
+    `SELECT id, username, role, csrf, expires_at FROM sessions WHERE id = ?`
   ).bind(sid).first();
   if (!row) return null;
-  if (row.expires_at < now() || !row.active) {
+  if (row.expires_at < now()) {
     await env.DB.prepare(`DELETE FROM sessions WHERE id = ?`).bind(sid).run();
     return null;
   }
-  return { sid, csrf: row.csrf, id: row.id, username: row.username, role: row.role };
+  return { sid, csrf: row.csrf, username: row.username, role: row.role };
+}
+
+// Create a session row (self-contained: holds username + role, so it works for
+// both local accounts and delegated distributor logins). Returns cookie material.
+async function createSession(env, username, role) {
+  const token = randomHex(32);
+  const sid = await sha256hex(token);
+  const csrf = randomHex(16);
+  const ttl = parseInt(env.SESSION_TTL_SECONDS || "43200", 10);
+  await env.DB.prepare(
+    `INSERT INTO sessions (id, username, role, csrf, created_at, expires_at) VALUES (?,?,?,?,?,?)`
+  ).bind(sid, username, role, csrf, now(), now() + ttl).run();
+  return { token, csrf, ttl };
 }
 
 function cookieHeader(token, ttl) {
@@ -222,30 +234,48 @@ async function api(req, env, path) {
   const method = req.method;
 
   // ---- login ----
+  // A local account (store admin) is tried first. Any other username is treated
+  // as a DISTRIBUTOR and verified against the Neta licensing system over HTTP
+  // (same username/password as the resellers there) — the store never touches
+  // the licensing database, it only asks the licensing Worker to verify.
   if (path === "/api/login" && method === "POST") {
     const { username, password } = await req.json().catch(() => ({}));
     if (!username || !password) return json({ error: "username and password required" }, 400);
-    const u = await env.DB.prepare(`SELECT * FROM users WHERE username = ?`).bind(username).first();
     const bad = () => json({ error: "invalid credentials" }, 401);
-    if (!u || !u.active) return bad();
-    if (u.locked_until > now()) return json({ error: "account locked, try later" }, 423);
-    const hash = await pbkdf2(password, hexToBytes(u.pass_salt), u.pass_iter);
-    if (!timingSafeEqual(hash, u.pass_hash)) {
-      const tries = (u.failed_tries || 0) + 1;
-      const lock = tries >= 5 ? now() + 300 : 0;
-      await env.DB.prepare(`UPDATE users SET failed_tries=?, locked_until=? WHERE id=?`).bind(tries, lock, u.id).run();
-      return bad();
+
+    const u = await env.DB.prepare(`SELECT * FROM users WHERE username = ?`).bind(username).first();
+    if (u) {
+      if (!u.active) return bad();
+      if (u.locked_until > now()) return json({ error: "account locked, try later" }, 423);
+      const hash = await pbkdf2(password, hexToBytes(u.pass_salt), u.pass_iter);
+      if (!timingSafeEqual(hash, u.pass_hash)) {
+        const tries = (u.failed_tries || 0) + 1;
+        const lock = tries >= 5 ? now() + 300 : 0;
+        await env.DB.prepare(`UPDATE users SET failed_tries=?, locked_until=? WHERE id=?`).bind(tries, lock, u.id).run();
+        return bad();
+      }
+      await env.DB.prepare(`UPDATE users SET failed_tries=0, locked_until=0, last_login=? WHERE id=?`).bind(now(), u.id).run();
+      const s = await createSession(env, u.username, u.role);
+      return json({ ok: true, username: u.username, role: u.role, csrf: s.csrf },
+        200, { "Set-Cookie": cookieHeader(s.token, s.ttl) });
     }
-    const token = randomHex(32);
-    const sid = await sha256hex(token);
-    const csrf = randomHex(16);
-    const ttl = parseInt(env.SESSION_TTL_SECONDS || "43200", 10);
-    await env.DB.prepare(
-      `INSERT INTO sessions (id, user_id, csrf, created_at, expires_at) VALUES (?,?,?,?,?)`
-    ).bind(sid, u.id, csrf, now(), now() + ttl).run();
-    await env.DB.prepare(`UPDATE users SET failed_tries=0, locked_until=0, last_login=? WHERE id=?`).bind(now(), u.id).run();
-    return json({ ok: true, username: u.username, role: u.role, csrf },
-      200, { "Set-Cookie": cookieHeader(token, ttl) });
+
+    // distributor (reseller) login — delegated to the licensing system
+    if (env.LICENSING_URL) {
+      try {
+        const resp = await fetch(`${env.LICENSING_URL.replace(/\/+$/, "")}/api/reseller/login`, {
+          method: "POST", headers: { "content-type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        });
+        if (resp.ok) {
+          const s = await createSession(env, username, "uploader");
+          await audit(env, username, "login_distributor", username);
+          return json({ ok: true, username, role: "uploader", csrf: s.csrf },
+            200, { "Set-Cookie": cookieHeader(s.token, s.ttl) });
+        }
+      } catch (_e) { /* fall through to invalid credentials */ }
+    }
+    return bad();
   }
 
   // everything below needs a session
@@ -442,8 +472,9 @@ async function api(req, env, path) {
   if (path.startsWith("/api/users/") && method === "DELETE") {
     if (!isAdmin) return needAdmin();
     const id = parseInt(path.split("/").pop(), 10);
-    if (id === user.id) return json({ error: "cannot delete yourself" }, 400);
-    await env.DB.prepare(`DELETE FROM sessions WHERE user_id = ?`).bind(id).run();
+    const target = await env.DB.prepare(`SELECT username FROM users WHERE id = ?`).bind(id).first();
+    if (target && target.username === user.username) return json({ error: "cannot delete yourself" }, 400);
+    if (target) await env.DB.prepare(`DELETE FROM sessions WHERE username = ?`).bind(target.username).run();
     await env.DB.prepare(`DELETE FROM users WHERE id = ?`).bind(id).run();
     await audit(env, user.username, "user_delete", String(id));
     return json({ ok: true });

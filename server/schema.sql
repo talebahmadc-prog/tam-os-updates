@@ -14,15 +14,17 @@ CREATE TABLE IF NOT EXISTS users (
   last_login   INTEGER
 );
 
+-- Self-contained sessions: hold username + role so they work for both local
+-- store accounts and delegated distributor (reseller) logins.
 CREATE TABLE IF NOT EXISTS sessions (
   id         TEXT PRIMARY KEY,         -- SHA-256(hex) of the cookie token
-  user_id    INTEGER NOT NULL,
+  username   TEXT NOT NULL,
+  role       TEXT NOT NULL,            -- 'admin' | 'uploader'
   csrf       TEXT NOT NULL,
   created_at INTEGER NOT NULL,
-  expires_at INTEGER NOT NULL,
-  FOREIGN KEY (user_id) REFERENCES users(id)
+  expires_at INTEGER NOT NULL
 );
-CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(user_id);
+CREATE INDEX IF NOT EXISTS idx_sessions_user ON sessions(username);
 
 -- Audit trail: who uploaded/changed what.
 CREATE TABLE IF NOT EXISTS audit_log (
