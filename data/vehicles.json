@@ -199,6 +199,21 @@
         "dilink",
         "byd-dilink-6-0"
       ]
+    },
+    {
+      "id": "neta-u-blue-mic",
+      "name": "NETA U Blue Mic",
+      "brand": "NETA",
+      "model": "U Blue Mic",
+      "androidVersion": 10,
+      "hardware": {
+        "chipset": "sa8155"
+      },
+      "tags": [
+        "neta",
+        "tam-os",
+        "neta-u-blue-mic"
+      ]
     }
   ]
 }
