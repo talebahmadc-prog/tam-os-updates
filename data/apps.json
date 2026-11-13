@@ -658,7 +658,7 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
+        "allVehicles": true,
         "vehicles": [],
         "require": {}
       },
