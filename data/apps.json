@@ -15,24 +15,9 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "byd-han"
-        ],
-        "require": {
-          "minAndroidVersion": 10
-        },
-        "prefer": {
-          "tags": [
-            "sa8295"
-          ]
-        },
-        "exclude": {
-          "vehicles": [],
-          "tags": []
-        }
+        "allVehicles": true,
+        "vehicles": [],
+        "require": {}
       },
       "releases": [
         {
@@ -46,13 +31,6 @@
           "sha256": "PENDING",
           "sizeBytes": 0,
           "minAndroidVersion": 10,
-          "compatibility": {
-            "vehicles": [
-              "neta-u",
-              "neta-x"
-            ],
-            "require": {}
-          },
           "changelog": "Performance improvements and playback fixes.",
           "updatedAt": "2026-11-13"
         },
@@ -67,12 +45,6 @@
           "sha256": "PENDING",
           "sizeBytes": 0,
           "minAndroidVersion": 11,
-          "compatibility": {
-            "vehicles": [
-              "byd-han"
-            ],
-            "require": {}
-          },
           "changelog": "Initial BYD build.",
           "updatedAt": "2026-11-13"
         },
@@ -86,7 +58,6 @@
           "published": true,
           "sha256": "68ea7a4fc95fcb81cb1c1278c11c8da8caba5608ecefb6142461c668282a0545",
           "sizeBytes": 39705059,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -104,20 +75,9 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "byd-han"
-        ],
-        "require": {
-          "minAndroidVersion": 10
-        },
-        "prefer": {},
-        "exclude": {
-          "vehicles": [],
-          "tags": []
-        }
+        "allVehicles": true,
+        "vehicles": [],
+        "require": {}
       },
       "releases": [
         {
@@ -131,12 +91,6 @@
           "sha256": "PENDING",
           "sizeBytes": 0,
           "minAndroidVersion": 10,
-          "compatibility": {
-            "vehicles": [
-              "neta-u"
-            ],
-            "require": {}
-          },
           "changelog": "NETA U tuned acoustic model.",
           "updatedAt": "2026-11-13"
         },
@@ -151,12 +105,6 @@
           "sha256": "PENDING",
           "sizeBytes": 0,
           "minAndroidVersion": 11,
-          "compatibility": {
-            "vehicles": [
-              "neta-x"
-            ],
-            "require": {}
-          },
           "changelog": "NETA X large-screen UI.",
           "updatedAt": "2026-11-13"
         },
@@ -171,12 +119,6 @@
           "sha256": "PENDING",
           "sizeBytes": 0,
           "minAndroidVersion": 11,
-          "compatibility": {
-            "vehicles": [
-              "byd-han"
-            ],
-            "require": {}
-          },
           "changelog": "BYD compatibility build.",
           "updatedAt": "2026-11-13"
         }
@@ -197,16 +139,7 @@
       "compatibility": {
         "allVehicles": true,
         "vehicles": [],
-        "require": {
-          "tags": [
-            "tam-os"
-          ]
-        },
-        "prefer": {},
-        "exclude": {
-          "vehicles": [],
-          "tags": []
-        }
+        "require": {}
       },
       "releases": [
         {
@@ -220,13 +153,6 @@
           "sha256": "PENDING",
           "sizeBytes": 0,
           "minAndroidVersion": 10,
-          "compatibility": {
-            "require": {
-              "tags": [
-                "tam-os"
-              ]
-            }
-          },
           "changelog": "Universal launcher for all TAM OS vehicles.",
           "updatedAt": "2026-11-13"
         }
@@ -247,17 +173,7 @@
       "compatibility": {
         "allVehicles": true,
         "vehicles": [],
-        "require": {
-          "chipset": [
-            "sa8295"
-          ],
-          "minAndroidVersion": 11
-        },
-        "prefer": {},
-        "exclude": {
-          "vehicles": [],
-          "tags": []
-        }
+        "require": {}
       },
       "releases": [
         {
@@ -271,13 +187,6 @@
           "sha256": "PENDING",
           "sizeBytes": 0,
           "minAndroidVersion": 11,
-          "compatibility": {
-            "require": {
-              "chipset": [
-                "sa8295"
-              ]
-            }
-          },
           "changelog": "Beta 3D navigation for SA8295 units.",
           "updatedAt": "2026-11-13"
         },
@@ -291,7 +200,6 @@
           "published": true,
           "sha256": "3747dc5b52a2014ee1590b8dec10f7dec52c8903695789e9f38b103b5053c229",
           "sizeBytes": 116972329,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -311,12 +219,7 @@
       "compatibility": {
         "allVehicles": true,
         "vehicles": [],
-        "require": {},
-        "prefer": {},
-        "exclude": {
-          "vehicles": [],
-          "tags": []
-        }
+        "require": {}
       },
       "releases": [
         {
@@ -330,9 +233,6 @@
           "sha256": "PENDING",
           "sizeBytes": 0,
           "minAndroidVersion": 10,
-          "compatibility": {
-            "require": {}
-          },
           "changelog": "Early preview. Disabled until stable.",
           "updatedAt": "2026-11-13"
         }
@@ -348,12 +248,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -367,7 +263,6 @@
           "published": true,
           "sha256": "84f189bb3b2b53aa496ad73fc5a0ccd6cc9176bc164e506e9f17cd6487d4d042",
           "sizeBytes": 49090459,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -383,12 +278,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -402,7 +293,6 @@
           "published": true,
           "sha256": "62119f040d629a9cd3225f280649a464936730c6466cafb5b9dd5ded14269a65",
           "sizeBytes": 105561934,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -418,12 +308,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -437,7 +323,6 @@
           "published": true,
           "sha256": "1f84b6e8a225623c1bd3480cef1a1ce7a4b815716aecbabb86f52ffeaf3aa99a",
           "sizeBytes": 180645680,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -453,12 +338,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -472,7 +353,6 @@
           "published": true,
           "sha256": "507f384d5fd43ae2b90d3c1f64d4faf5a82428c4c58302b978d59810fca0de28",
           "sizeBytes": 5809815,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -488,12 +368,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -507,7 +383,6 @@
           "published": true,
           "sha256": "822dfc6bded22c28b0d855b687d7a226e228db5bb6504acbd5f59d1668eb7966",
           "sizeBytes": 42842460,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -523,12 +398,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -542,7 +413,6 @@
           "published": true,
           "sha256": "4502d04f460a622c9373ec4465b2d7b6f856a38fe4e16bba3a0f71819644f0bd",
           "sizeBytes": 2405799,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -558,12 +428,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -577,7 +443,6 @@
           "published": true,
           "sha256": "e97c3de219d5519e09642f861bbe05392edcbc25f8916c04fe977187f622b12c",
           "sizeBytes": 162375376,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -593,12 +458,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -612,7 +473,6 @@
           "published": true,
           "sha256": "88cc6e1833349e31bfec87468a9fb83d16fb99a644377c92d9251045c4346fe3",
           "sizeBytes": 118269591,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -628,12 +488,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -647,7 +503,6 @@
           "published": true,
           "sha256": "1d3bba1bb0679e722942b6d3910305ec74bd70c6aaabc48b7055032283d5a23b",
           "sizeBytes": 40864948,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -663,12 +518,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -682,7 +533,6 @@
           "published": true,
           "sha256": "2cdbba53751b7fef1ba04f2360580aa704581dcff368ba74df50eafc9aa0fb83",
           "sizeBytes": 2213855,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -713,7 +563,6 @@
           "published": true,
           "sha256": "a3ab61b5aaa6adf028358db75415158484500eee9ea36461d0605368e8f78d55",
           "sizeBytes": 30524011,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -729,12 +578,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -748,7 +593,6 @@
           "published": true,
           "sha256": "c0dcf28dc5abf68094a4c7e53496939c91939331483ab8c073193620e7310775",
           "sizeBytes": 133081734,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -764,12 +608,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -783,7 +623,6 @@
           "published": true,
           "sha256": "f636af73e13f4dfc813ea097708b72a04721fdf3d93e3be5eea2ff1aedca6436",
           "sizeBytes": 72557375,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -799,12 +638,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -818,7 +653,6 @@
           "published": true,
           "sha256": "1d3bba1bb0679e722942b6d3910305ec74bd70c6aaabc48b7055032283d5a23b",
           "sizeBytes": 40864948,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -834,12 +668,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -853,7 +683,6 @@
           "published": true,
           "sha256": "fa7cb74f63cce5f58458a70289762680c1770ab89c136ca6dc296b893cbb7094",
           "sizeBytes": 41510,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -869,12 +698,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -888,7 +713,6 @@
           "published": true,
           "sha256": "f60197b00437efa2c1409592275c0947d5886b2acb8fd30f567f3bfa0afbd264",
           "sizeBytes": 22490006,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
@@ -904,12 +728,8 @@
       ],
       "enabled": true,
       "compatibility": {
-        "allVehicles": false,
-        "vehicles": [
-          "neta-u",
-          "neta-x",
-          "neta-v"
-        ],
+        "allVehicles": true,
+        "vehicles": [],
         "require": {}
       },
       "releases": [
@@ -923,7 +743,6 @@
           "published": true,
           "sha256": "7ef9a22b5e84b576a7475a782b4e2155231c63df526cd60922fdf4cca35d96f0",
           "sizeBytes": 64828166,
-          "compatibility": {},
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
