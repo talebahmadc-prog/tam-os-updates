@@ -1,0 +1,9 @@
+# Secrets & generated SQL — never commit
+.dev.vars
+admin.sql
+admin.local.sql
+*.local.sql
+
+# Wrangler / Node
+.wrangler/
+node_modules/

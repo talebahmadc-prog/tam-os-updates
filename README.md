@@ -42,6 +42,17 @@ tam-os-updates/
 
 > **APKs are never put in regular git.** Only JSON lives in the repo; binaries are Release Assets.
 
+### Admin backend (multi-user) — `server/`
+
+A Cloudflare Worker + D1 backend where **multiple users sign in with username/password**
+to upload apps and define vehicles:
+- Roles: **admin** (manages users + everything) and **uploader** (uploads apps, defines vehicles).
+- A single **GitHub token lives as a Cloudflare secret** (never in the browser or the Android app);
+  the Worker commits the JSON and uploads APKs to Releases on the users' behalf.
+
+See [`server/README.md`](server/README.md) for the full deploy guide (token, D1, first admin, deploy)
+and the one-time `D:\Apps` importer.
+
 ---
 
 ## Base URLs (real examples)

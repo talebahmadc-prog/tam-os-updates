@@ -1,0 +1,26 @@
+{
+  "name": "tam-os-store",
+  "main": "src/index.js",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./public",
+    "binding": "ASSETS",
+    "run_worker_first": ["/api/*"]
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tam-os-store-db",
+      "database_id": "PASTE_DATABASE_ID_AFTER_wrangler_d1_create"
+    }
+  ],
+  "vars": {
+    "GITHUB_OWNER": "talebahmadc-prog",
+    "GITHUB_REPO": "tam-os-updates",
+    "GITHUB_BRANCH": "main",
+    "SESSION_TTL_SECONDS": "43200"
+  }
+  // Secret (never in vars): the GitHub token used to commit JSON and upload
+  // APKs to Releases. Set it with:
+  //   wrangler secret put GITHUB_TOKEN
+}

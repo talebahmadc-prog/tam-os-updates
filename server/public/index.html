@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TAM OS Store — Admin</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<!-- Login -->
+<div id="login" class="login-wrap">
+  <div class="card">
+    <div class="hd">TAM OS Store — Sign in</div>
+    <div class="bd">
+      <div id="loginErr" class="notice err hidden"></div>
+      <label class="field"><span>Username</span><input id="u" autocomplete="username" /></label>
+      <label class="field"><span>Password</span><input id="p" type="password" autocomplete="current-password" /></label>
+      <button class="primary" id="loginBtn" style="width:100%">Sign in</button>
+    </div>
+  </div>
+</div>
+
+<!-- App shell -->
+<div id="app" class="hidden">
+  <header>
+    <h1>TAM OS Store</h1>
+    <span class="muted" id="repoLine"></span>
+    <div class="spacer"></div>
+    <span id="whoami" class="muted"></span>
+    <button id="logoutBtn">Sign out</button>
+  </header>
+
+  <div class="tabs" role="tablist">
+    <button role="tab" data-tab="upload" aria-selected="true">Upload APK</button>
+    <button role="tab" data-tab="apps" aria-selected="false">Apps</button>
+    <button role="tab" data-tab="vehicles" aria-selected="false">Vehicles</button>
+    <button role="tab" data-tab="users" aria-selected="false" class="admin-only">Users</button>
+    <button role="tab" data-tab="audit" aria-selected="false" class="admin-only">Audit</button>
+  </div>
+
+  <main>
+    <div id="msg"></div>
+
+    <!-- UPLOAD -->
+    <section data-pane="upload">
+      <div class="card"><div class="hd">Upload / update an app APK</div><div class="bd">
+        <div class="grid2">
+          <label class="field"><span>App</span>
+            <select id="up-app"><option value="__new__">➕ New app…</option></select></label>
+          <label class="field" id="up-newid-wrap"><span>New app id (kebab-case)</span><input id="up-newid" placeholder="e.g. tam-radio" /></label>
+          <label class="field"><span>Display name</span><input id="up-name" placeholder="TAM Radio" /></label>
+          <label class="field"><span>Package name</span><input id="up-pkg" placeholder="com.tam.radio" /></label>
+          <label class="field"><span>Category</span><select id="up-cat"></select></label>
+          <label class="field"><span>Variant label</span><input id="up-variant" placeholder="neta-u / universal" value="universal" /></label>
+          <label class="field"><span>Version name</span><input id="up-vname" placeholder="1.0.0" /></label>
+          <label class="field"><span>Version code</span><input id="up-vcode" type="number" min="1" placeholder="1" /></label>
+          <label class="field"><span>Release tag</span><input id="up-tag" placeholder="universal-2026-11-1" /></label>
+          <label class="field"><span>Min Android version</span><input id="up-minos" type="number" min="1" placeholder="10" /></label>
+        </div>
+        <fieldset style="border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin:6px 0 12px;">
+          <legend class="muted" style="font-size:12px">This APK is for</legend>
+          <label class="row"><input type="radio" name="up-scope" id="up-all" checked /> All TAM OS vehicles</label>
+          <label class="row"><input type="radio" name="up-scope" id="up-spec" /> Specific vehicles</label>
+          <div class="checks" id="up-vehchecks" style="margin-top:6px;"></div>
+        </fieldset>
+        <label class="field"><span>Changelog</span><input id="up-changelog" placeholder="What changed" /></label>
+        <label class="field"><span>APK file</span><input id="up-file" type="file" accept=".apk,application/vnd.android.package-archive" /></label>
+        <div class="row"><button class="primary" id="up-submit">Upload to GitHub Releases</button>
+          <small class="hint">Large files (&gt;~90 MB) may exceed the Worker limit — use the bulk-upload script for those.</small></div>
+        <div id="up-result" style="margin-top:10px;"></div>
+      </div></div>
+    </section>
+
+    <!-- APPS -->
+    <section data-pane="apps" class="hidden">
+      <div class="card"><div class="hd">Apps — compatibility (all vehicles or specific)</div><div class="bd">
+        <div id="apps-list"></div>
+      </div></div>
+      <div class="card" id="app-editor-card" class="hidden"><div class="hd" id="app-editor-title">Edit app</div>
+        <div class="bd" id="app-editor"></div></div>
+    </section>
+
+    <!-- VEHICLES -->
+    <section data-pane="vehicles" class="hidden">
+      <div class="card"><div class="hd">Add / edit a vehicle</div><div class="bd">
+        <div class="grid2">
+          <label class="field"><span>Id (kebab-case)</span><input id="v-id" placeholder="neta-u" /></label>
+          <label class="field"><span>Name</span><input id="v-name" placeholder="NETA U" /></label>
+          <label class="field"><span>Brand</span><input id="v-brand" placeholder="NETA" /></label>
+          <label class="field"><span>Model</span><input id="v-model" placeholder="U / U-II" /></label>
+          <label class="field"><span>Android version</span><input id="v-os" type="number" min="1" placeholder="10" /></label>
+          <label class="field"><span>Chipset</span><input id="v-chip" placeholder="sa8155" /></label>
+          <label class="field"><span>Tags (comma)</span><input id="v-tags" placeholder="neta-u, qualcomm, tam-os" /></label>
+        </div>
+        <button class="primary" id="v-save">Save vehicle</button>
+      </div></div>
+      <div class="card"><div class="hd">Vehicles</div><div class="bd"><div id="veh-list"></div></div></div>
+    </section>
+
+    <!-- USERS -->
+    <section data-pane="users" class="hidden">
+      <div class="card"><div class="hd">Create user</div><div class="bd">
+        <div class="grid2">
+          <label class="field"><span>Username</span><input id="nu-name" /></label>
+          <label class="field"><span>Password (min 8)</span><input id="nu-pass" type="password" /></label>
+          <label class="field"><span>Role</span><select id="nu-role"><option value="uploader">uploader</option><option value="admin">admin</option></select></label>
+        </div>
+        <button class="primary" id="nu-create">Create user</button>
+      </div></div>
+      <div class="card"><div class="hd">Users</div><div class="bd"><div id="users-list"></div></div></div>
+    </section>
+
+    <!-- AUDIT -->
+    <section data-pane="audit" class="hidden">
+      <div class="card"><div class="hd">Audit log (latest 200)</div><div class="bd"><div id="audit-list"></div></div></div>
+    </section>
+  </main>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
