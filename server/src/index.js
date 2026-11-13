@@ -260,13 +260,16 @@ async function api(req, env, path) {
         200, { "Set-Cookie": cookieHeader(s.token, s.ttl) });
     }
 
-    // distributor (reseller) login — delegated to the licensing system
-    if (env.LICENSING_URL) {
+    // distributor (reseller) login — delegated to the licensing Worker through a
+    // service binding (same account; a plain fetch to its workers.dev URL is
+    // blocked with Cloudflare error 1042). The store calls only the licensing
+    // HTTP endpoint; it has no access to the licensing database.
+    if (env.LICENSING) {
       try {
-        const resp = await fetch(`${env.LICENSING_URL.replace(/\/+$/, "")}/api/reseller/login`, {
+        const resp = await env.LICENSING.fetch(new Request("https://licensing/api/reseller/login", {
           method: "POST", headers: { "content-type": "application/json" },
           body: JSON.stringify({ username, password }),
-        });
+        }));
         if (resp.ok) {
           const s = await createSession(env, username, "uploader");
           await audit(env, username, "login_distributor", username);

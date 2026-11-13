@@ -20,7 +20,13 @@
     "GITHUB_BRANCH": "main",
     "SESSION_TTL_SECONDS": "43200",
     "LICENSING_URL": "https://neta-licensing.netau.workers.dev"
-  }
+  },
+  // Service binding to the licensing Worker (same account). A plain fetch to its
+  // workers.dev URL is blocked (Cloudflare error 1042); this binding calls it
+  // directly. The store uses only its /api/reseller/login endpoint — no DB access.
+  "services": [
+    { "binding": "LICENSING", "service": "neta-licensing" }
+  ]
   // Secret (never in vars): the GitHub token used to commit JSON and upload
   // APKs to Releases. Set it with:
   //   wrangler secret put GITHUB_TOKEN
