@@ -241,9 +241,9 @@
     },
     {
       "id": "airpin-pro-5-6-7",
-      "name": "Airpin Pro 5 6 7",
+      "name": "AirPin Pro",
       "packageName": "",
-      "category": "tools",
+      "category": "media",
       "tags": [
         "imported"
       ],
@@ -271,9 +271,9 @@
     },
     {
       "id": "gms-qsm-revanced-android",
-      "name": "Gms Qsm Revanced Android",
+      "name": "microG GmsCore",
       "packageName": "app.revanced.android.gms_QSM",
-      "category": "tools",
+      "category": "system",
       "tags": [
         "imported"
       ],
@@ -301,9 +301,9 @@
     },
     {
       "id": "app-revanced-android-youtube-qsm",
-      "name": "App Revanced Android Youtube Qsm",
+      "name": "ReVanced YouTube",
       "packageName": "",
-      "category": "tools",
+      "category": "media",
       "tags": [
         "imported"
       ],
@@ -332,9 +332,9 @@
     },
     {
       "id": "byd-equalizer",
-      "name": "Byd Equalizer",
+      "name": "BYD Equalizer",
       "packageName": "",
-      "category": "tools",
+      "category": "media",
       "tags": [
         "imported"
       ],
@@ -362,9 +362,9 @@
     },
     {
       "id": "com-mod-headunit-reloaded-emulator-hur-mod-apk-headunit-reloaded-v7-2-720-1-1",
-      "name": "Com Mod Headunit Reloaded Emulator Hur Mod Apk Headunit Reloaded V7 2 720 1 1",
+      "name": "Headunit Reloaded",
       "packageName": "",
-      "category": "tools",
+      "category": "navigation",
       "tags": [
         "imported"
       ],
@@ -392,9 +392,9 @@
     },
     {
       "id": "mapsplaceholder-android-car",
-      "name": "Mapsplaceholder Android Car",
+      "name": "Maps Placeholder",
       "packageName": "com.android.car.mapsplaceholder",
-      "category": "tools",
+      "category": "system",
       "tags": [
         "imported"
       ],
@@ -422,9 +422,9 @@
     },
     {
       "id": "beta-chrome",
-      "name": "Beta Chrome",
+      "name": "Chrome Beta",
       "packageName": "com.chrome.beta",
-      "category": "tools",
+      "category": "browsers",
       "tags": [
         "imported"
       ],
@@ -453,9 +453,9 @@
     },
     {
       "id": "maps-google-android-apps",
-      "name": "Maps Google Android Apps",
+      "name": "Google Maps",
       "packageName": "com.google.android.apps.maps",
-      "category": "tools",
+      "category": "navigation",
       "tags": [
         "imported"
       ],
@@ -484,9 +484,9 @@
     },
     {
       "id": "gms-mgoogle-android",
-      "name": "Gms Mgoogle Android",
+      "name": "microG",
       "packageName": "com.mgoogle.android.gms",
-      "category": "tools",
+      "category": "system",
       "tags": [
         "imported"
       ],
@@ -514,7 +514,7 @@
     },
     {
       "id": "revancedmanager-revanced-net",
-      "name": "Revancedmanager Revanced Net",
+      "name": "ReVanced Manager",
       "packageName": "com.revanced.net.revancedmanager",
       "category": "tools",
       "tags": [
@@ -544,9 +544,9 @@
     },
     {
       "id": "dramalive",
-      "name": "Dramalive",
+      "name": "DramaLive",
       "packageName": "",
-      "category": "tools",
+      "category": "media",
       "tags": [
         "imported"
       ],
@@ -574,9 +574,9 @@
     },
     {
       "id": "firefox-155-0-1-arm64",
-      "name": "Firefox 155 0 1 Arm64",
+      "name": "Firefox",
       "packageName": "",
-      "category": "tools",
+      "category": "browsers",
       "tags": [
         "imported"
       ],
@@ -605,7 +605,7 @@
     },
     {
       "id": "gboard-1",
-      "name": "Gboard 1",
+      "name": "Gboard",
       "packageName": "",
       "category": "tools",
       "tags": [
@@ -636,9 +636,9 @@
     },
     {
       "id": "microg",
-      "name": "Microg",
+      "name": "microG Services",
       "packageName": "",
-      "category": "tools",
+      "category": "system",
       "tags": [
         "imported"
       ],
@@ -666,7 +666,7 @@
     },
     {
       "id": "netaclock-pro",
-      "name": "Netaclock Pro",
+      "name": "NetaClock Pro",
       "packageName": "",
       "category": "tools",
       "tags": [
@@ -696,9 +696,9 @@
     },
     {
       "id": "vradio-v2-7-1",
-      "name": "Vradio V2 7 1",
+      "name": "VRadio",
       "packageName": "",
-      "category": "tools",
+      "category": "media",
       "tags": [
         "imported"
       ],
@@ -726,7 +726,7 @@
     },
     {
       "id": "y-keyboard",
-      "name": "Y Keyboard",
+      "name": "Yandex Keyboard",
       "packageName": "",
       "category": "tools",
       "tags": [
@@ -757,9 +757,9 @@
     },
     {
       "id": "cm-aptoide-pt",
-      "name": "aptoide",
+      "name": "Aptoide",
       "packageName": "cm.aptoide.pt",
-      "category": "media",
+      "category": "tools",
       "tags": [],
       "enabled": true,
       "compatibility": {
