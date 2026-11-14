@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-13",
+  "updatedAt": "2026-11-14",
   "releasesBaseUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download",
   "releases": [
     {
@@ -311,6 +311,16 @@
           "sha256": "7ef9a22b5e84b576a7475a782b4e2155231c63df526cd60922fdf4cca35d96f0",
           "sizeBytes": 64828166,
           "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/apps-import-2026-11/Y.keyboard.apk"
+        },
+        {
+          "appId": "com-taleb-ammanweather",
+          "fileName": "AmmanClockWeather-Minutes.apk",
+          "versionName": "1.1",
+          "versionCode": 2,
+          "published": true,
+          "sha256": "86c5bc0c57828c894f4fac3e48d5b5c568e1e8658442c4603f7545b318f0d974",
+          "sizeBytes": 42306,
+          "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/apps-import-2026-11/AmmanClockWeather-Minutes.apk"
         }
       ]
     },
