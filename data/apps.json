@@ -827,8 +827,10 @@
       "tags": [],
       "enabled": false,
       "compatibility": {
-        "allVehicles": true,
-        "vehicles": [],
+        "allVehicles": false,
+        "vehicles": [
+          "byd-dilink-6-0"
+        ],
         "require": {}
       },
       "releases": [
