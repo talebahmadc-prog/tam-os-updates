@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-13",
+  "updatedAt": "2026-11-14",
   "apps": [
     {
       "id": "youtube",
@@ -61,7 +61,8 @@
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
-      ]
+      ],
+      "iconUrl": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/youtube.png"
     },
     {
       "id": "tam-voice",
@@ -326,7 +327,8 @@
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
-      ]
+      ],
+      "iconUrl": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/youtube.png"
     },
     {
       "id": "byd-equalizer",
@@ -446,7 +448,8 @@
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
-      ]
+      ],
+      "iconUrl": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/google-chrome.png"
     },
     {
       "id": "maps-google-android-apps",
@@ -476,7 +479,8 @@
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
-      ]
+      ],
+      "iconUrl": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/google-maps.png"
     },
     {
       "id": "gms-mgoogle-android",
@@ -596,7 +600,8 @@
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
-      ]
+      ],
+      "iconUrl": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/firefox.png"
     },
     {
       "id": "gboard-1",
@@ -626,7 +631,8 @@
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
-      ]
+      ],
+      "iconUrl": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/gboard.png"
     },
     {
       "id": "microg",
@@ -746,7 +752,8 @@
           "changelog": "Imported from D:\\Apps",
           "updatedAt": "2026-11-13"
         }
-      ]
+      ],
+      "iconUrl": "https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/png/yandex.png"
     },
     {
       "id": "cm-aptoide-pt",
