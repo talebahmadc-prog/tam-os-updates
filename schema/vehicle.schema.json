@@ -35,7 +35,8 @@
             "screenInches": { "type": "number", "minimum": 0 }
           }
         },
-        "tags": { "type": "array", "items": { "$ref": "#/$defs/tag" } }
+        "tags": { "type": "array", "items": { "$ref": "#/$defs/tag" } },
+        "imageUrl": { "type": "string", "pattern": "^https://" }
       }
     }
   }

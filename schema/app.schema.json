@@ -74,6 +74,7 @@
         "category": { "$ref": "#/$defs/tag" },
         "tags": { "type": "array", "items": { "$ref": "#/$defs/tag" } },
         "enabled": { "type": "boolean" },
+        "iconUrl": { "type": "string", "pattern": "^https://" },
         "compatibility": { "$ref": "#/$defs/compatibility" },
         "releases": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/release" } }
       }
