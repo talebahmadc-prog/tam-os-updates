@@ -818,6 +818,35 @@
           "updatedAt": "2026-11-14"
         }
       ]
+    },
+    {
+      "id": "org-smarttube-stable",
+      "name": "Gms",
+      "packageName": "org.smarttube.stable",
+      "category": "media",
+      "tags": [],
+      "enabled": true,
+      "compatibility": {
+        "allVehicles": true,
+        "vehicles": [],
+        "require": {}
+      },
+      "releases": [
+        {
+          "variant": "universal",
+          "versionCode": 2446,
+          "versionName": "32.56",
+          "releaseTag": "universal-2026-11",
+          "apkFileName": "SmartTube_stable_32.56_universal.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11/SmartTube_stable_32.56_universal.apk",
+          "published": true,
+          "sha256": "4a35b90940612e048e4e9cb9e10379f7db1e84f30375994129f10a571ee04ce5",
+          "sizeBytes": 34922752,
+          "compatibility": {},
+          "changelog": "",
+          "updatedAt": "2026-11-14"
+        }
+      ]
     }
   ]
 }
