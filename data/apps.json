@@ -619,7 +619,13 @@
       "compatibility": {
         "allVehicles": true,
         "vehicles": [],
-        "require": {}
+        "require": {},
+        "exclude": {
+          "vehicles": [
+            "neta-x"
+          ],
+          "tags": []
+        }
       },
       "releases": [
         {
@@ -875,6 +881,43 @@
           "sizeBytes": 36858203,
           "compatibility": {},
           "changelog": "",
+          "updatedAt": "2026-11-14"
+        }
+      ]
+    },
+    {
+      "id": "gboard-neta-x",
+      "name": "Gboard",
+      "packageName": "com.google.android.inputmethod.latin",
+      "category": "tools",
+      "tags": [
+        "imported",
+        "neta-x"
+      ],
+      "enabled": true,
+      "compatibility": {
+        "allVehicles": false,
+        "vehicles": [
+          "neta-x"
+        ],
+        "require": {}
+      },
+      "releases": [
+        {
+          "variant": "universal",
+          "versionCode": 54412449,
+          "versionName": "10.5.03.367007960-beta-armeabi-v7a",
+          "releaseTag": "apps-import-2026-11",
+          "apkFileName": "Gboard-NetaX.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/apps-import-2026-11/Gboard-NetaX.apk",
+          "published": true,
+          "sha256": "dffdae627339d5fe2476b90775185deb3c7520cb7f2636720ff951322baf17a9",
+          "sizeBytes": 56300536,
+          "compatibility": {
+            "vehicles": [
+              "neta-x"
+            ]
+          },
           "updatedAt": "2026-11-14"
         }
       ]
