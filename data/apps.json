@@ -783,6 +783,36 @@
           "updatedAt": "2026-11-13"
         }
       ]
+    },
+    {
+      "id": "com-taleb-ammanweather",
+      "name": "Amman Clock Weather",
+      "packageName": "com.taleb.ammanweather",
+      "category": "tools",
+      "tags": [
+        "imported"
+      ],
+      "enabled": true,
+      "compatibility": {
+        "allVehicles": true,
+        "vehicles": [],
+        "require": {}
+      },
+      "releases": [
+        {
+          "variant": "universal",
+          "versionCode": 2,
+          "versionName": "1.1",
+          "releaseTag": "apps-import-2026-11",
+          "apkFileName": "AmmanClockWeather-Minutes.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/apps-import-2026-11/AmmanClockWeather-Minutes.apk",
+          "published": true,
+          "sha256": "86c5bc0c57828c894f4fac3e48d5b5c568e1e8658442c4603f7545b318f0d974",
+          "sizeBytes": 42306,
+          "compatibility": {},
+          "updatedAt": "2026-11-14"
+        }
+      ]
     }
   ]
 }
