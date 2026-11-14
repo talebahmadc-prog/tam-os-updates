@@ -856,7 +856,7 @@
       "packageName": "com.estrongs.android.pop",
       "category": "media",
       "tags": [],
-      "enabled": true,
+      "enabled": false,
       "compatibility": {
         "allVehicles": true,
         "vehicles": [],
