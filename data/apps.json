@@ -825,7 +825,7 @@
       "packageName": "org.smarttube.stable",
       "category": "media",
       "tags": [],
-      "enabled": false,
+      "enabled": true,
       "compatibility": {
         "allVehicles": false,
         "vehicles": [
