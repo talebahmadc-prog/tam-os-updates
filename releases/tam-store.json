@@ -1,12 +1,12 @@
 {
   "variant": "universal",
-  "versionCode": 9,
-  "versionName": "1.8",
+  "versionCode": 10,
+  "versionName": "1.9",
   "releaseTag": "tam-store",
-  "apkFileName": "TAM-Store-1.8.apk",
-  "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/tam-store/TAM-Store-1.8.apk",
+  "apkFileName": "TAM-Store-1.9.apk",
+  "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/tam-store/TAM-Store-1.9.apk",
   "published": true,
-  "sha256": "4464eece14679417d85c053064dfaf2773b5a2b0978a0049a8db0ae64ae295b2",
-  "sizeBytes": 1656726,
+  "sha256": "8cd118e5edb0160baa27af87f3485c5ddccbc6f8a23688eb9645dc3f33bf697f",
+  "sizeBytes": 1635654,
   "updatedAt": "2026-11-14"
 }
