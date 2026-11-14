@@ -338,6 +338,16 @@
           "sha256": "cd3a042bb2135040024cdd4e7b0dfd5f2db950e6fc111f529b5e5887fbf7fc47",
           "sizeBytes": 13074189,
           "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11/aptoide.apk"
+        },
+        {
+          "appId": "org-smarttube-stable",
+          "fileName": "SmartTube_stable_32.56_universal.apk",
+          "versionName": "32.56",
+          "versionCode": 2446,
+          "published": true,
+          "sha256": "4a35b90940612e048e4e9cb9e10379f7db1e84f30375994129f10a571ee04ce5",
+          "sizeBytes": 34922752,
+          "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11/SmartTube_stable_32.56_universal.apk"
         }
       ]
     }
