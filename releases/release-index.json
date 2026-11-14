@@ -348,6 +348,16 @@
           "sha256": "4a35b90940612e048e4e9cb9e10379f7db1e84f30375994129f10a571ee04ce5",
           "sizeBytes": 34922752,
           "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11/SmartTube_stable_32.56_universal.apk"
+        },
+        {
+          "appId": "com-estrongs-android-pop",
+          "fileName": "es-file-explorer-4-4-2-2-1.apk",
+          "versionName": "4.4.2.2.1",
+          "versionCode": 15036,
+          "published": true,
+          "sha256": "0f9f18684653696b1146700046f12e313c01e9fd5b794db35f6ba913cbc7c853",
+          "sizeBytes": 36858203,
+          "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11/es-file-explorer-4-4-2-2-1.apk"
         }
       ]
     }
