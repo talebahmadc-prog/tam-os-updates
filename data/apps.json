@@ -849,6 +849,35 @@
           "updatedAt": "2026-11-14"
         }
       ]
+    },
+    {
+      "id": "com-estrongs-android-pop",
+      "name": "Pop",
+      "packageName": "com.estrongs.android.pop",
+      "category": "media",
+      "tags": [],
+      "enabled": true,
+      "compatibility": {
+        "allVehicles": true,
+        "vehicles": [],
+        "require": {}
+      },
+      "releases": [
+        {
+          "variant": "universal",
+          "versionCode": 15036,
+          "versionName": "4.4.2.2.1",
+          "releaseTag": "universal-2026-11",
+          "apkFileName": "es-file-explorer-4-4-2-2-1.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11/es-file-explorer-4-4-2-2-1.apk",
+          "published": true,
+          "sha256": "0f9f18684653696b1146700046f12e313c01e9fd5b794db35f6ba913cbc7c853",
+          "sizeBytes": 36858203,
+          "compatibility": {},
+          "changelog": "",
+          "updatedAt": "2026-11-14"
+        }
+      ]
     }
   ]
 }
