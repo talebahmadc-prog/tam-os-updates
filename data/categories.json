@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-13",
+  "updatedAt": "2026-11-14",
   "categories": [
     {
       "id": "media",
@@ -37,6 +37,12 @@
       "name": "Games",
       "description": "Games optimized for the vehicle head unit.",
       "icon": "gamepad"
+    },
+    {
+      "id": "browsers",
+      "name": "Browsers",
+      "description": "Web browsers.",
+      "icon": "globe"
     }
   ]
 }
