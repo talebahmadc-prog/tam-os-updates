@@ -676,36 +676,6 @@
       "iconUrl": "https://raw.githubusercontent.com/talebahmadc-prog/tam-os-updates/main/icons/microg.png"
     },
     {
-      "id": "netaclock-pro",
-      "name": "NetaClock Pro",
-      "packageName": "",
-      "category": "tools",
-      "tags": [
-        "imported"
-      ],
-      "enabled": true,
-      "compatibility": {
-        "allVehicles": true,
-        "vehicles": [],
-        "require": {}
-      },
-      "releases": [
-        {
-          "variant": "universal",
-          "versionCode": 1,
-          "versionName": "1.0.0",
-          "releaseTag": "apps-import-2026-11",
-          "apkFileName": "NetaClock-Pro.apk",
-          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/apps-import-2026-11/NetaClock-Pro.apk",
-          "published": true,
-          "sha256": "fa7cb74f63cce5f58458a70289762680c1770ab89c136ca6dc296b893cbb7094",
-          "sizeBytes": 41510,
-          "changelog": "Imported from D:\\Apps",
-          "updatedAt": "2026-11-13"
-        }
-      ]
-    },
-    {
       "id": "vradio-v2-7-1",
       "name": "VRadio",
       "packageName": "",
