@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-14",
+  "updatedAt": "2026-11-15",
   "apps": [
     {
       "id": "youtube",
@@ -859,6 +859,37 @@
             ]
           },
           "updatedAt": "2026-11-14"
+        }
+      ]
+    },
+    {
+      "id": "com-sfcar-launcher",
+      "name": "Launcher",
+      "packageName": "com.sfcar.launcher",
+      "category": "media",
+      "tags": [],
+      "enabled": true,
+      "private": false,
+      "code": "",
+      "compatibility": {
+        "allVehicles": true,
+        "vehicles": [],
+        "require": {}
+      },
+      "releases": [
+        {
+          "variant": "universal",
+          "versionCode": 69,
+          "versionName": "1.2.3",
+          "releaseTag": "universal-2026-11",
+          "apkFileName": "launcher.apk",
+          "apkUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11/launcher.apk",
+          "published": true,
+          "sha256": "4d6b7eea22d0c0f10932403f1d4be127d49bb39e35066ce9e1d16c2b2e7e4218",
+          "sizeBytes": 20966128,
+          "compatibility": {},
+          "changelog": "",
+          "updatedAt": "2026-11-15"
         }
       ]
     }
