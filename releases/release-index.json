@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updatedAt": "2026-11-14",
+  "updatedAt": "2026-11-15",
   "releasesBaseUrl": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download",
   "releases": [
     {
@@ -358,6 +358,16 @@
           "sha256": "0f9f18684653696b1146700046f12e313c01e9fd5b794db35f6ba913cbc7c853",
           "sizeBytes": 36858203,
           "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11/es-file-explorer-4-4-2-2-1.apk"
+        },
+        {
+          "appId": "com-sfcar-launcher",
+          "fileName": "launcher.apk",
+          "versionName": "1.2.3",
+          "versionCode": 69,
+          "published": true,
+          "sha256": "4d6b7eea22d0c0f10932403f1d4be127d49bb39e35066ce9e1d16c2b2e7e4218",
+          "sizeBytes": 20966128,
+          "url": "https://github.com/talebahmadc-prog/tam-os-updates/releases/download/universal-2026-11/launcher.apk"
         }
       ]
     }
