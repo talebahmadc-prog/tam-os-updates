@@ -1,0 +1,19 @@
+{
+  "note": "Per-vehicle install recipes, fetched by the app at runtime (never hardcoded in the APK). installerPackage = the installer identity to attribute the install to (adb -i); reinstall = -r; allowDowngrade = -d; grantAll = grant every runtime permission after install (-g).",
+  "default": {
+    "installer": "session",
+    "installerPackage": "",
+    "reinstall": true,
+    "allowDowngrade": true,
+    "grantAll": true
+  },
+  "vehicles": {
+    "neta-u-blue-mic": {
+      "installer": "session",
+      "installerPackage": "com.autonavi.amapauto",
+      "reinstall": true,
+      "allowDowngrade": true,
+      "grantAll": false
+    }
+  }
+}
