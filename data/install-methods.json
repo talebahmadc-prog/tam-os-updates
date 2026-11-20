@@ -1,5 +1,7 @@
 {
   "note": "Per-vehicle install recipes, fetched by the app at runtime (never hardcoded in the APK). installerPackage = the installer identity to attribute the install to (adb -i); reinstall = -r; allowDowngrade = -d; grantAll = grant every runtime permission after install (-g).",
+  "factoryCodeNote": "Only these vehicles need the head-unit factory code (dev_adb_auth_passwd) written during Factory Pass. For any other vehicle the server returns no factory_code and the app writes nothing. Kept here (server-side) so the list is never baked into the APK.",
+  "factoryCodeVehicles": ["neta-u-large-2022", "neta-u-large-2023", "neta-v", "neta-aya"],
   "default": {
     "installer": "session",
     "installerPackage": "",

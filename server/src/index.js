@@ -439,6 +439,7 @@ async function api(req, env, path) {
     const b = await req.json().catch(() => ({}));
     const vin = String(b.vin || "").trim().toUpperCase();
     const code = String(b.code || "").replace(/\D/g, "");
+    const vehicle = String(b.vehicle || "").trim();
     if (code.length < 4) return json({ ok: false, error: "bad input" }, 400, H);
     const nowS = now();
     const row = await env.DB.prepare("SELECT vin, expires_at, used_at FROM factory_codes WHERE code=?").bind(code).first();
@@ -457,8 +458,18 @@ async function api(req, env, path) {
     // FactoryTool produced. The app writes it to the vehicle to unlock installs.
     // Only released against a just-redeemed single-use code, and only for a real
     // 17-char VIN (the AES input must be exact or the code won't match the car).
+    // Scope: only vehicles on the server's factoryCodeVehicles list need it (e.g.
+    // NETA U large-screen / V / Aya). For any other vehicle we return no code and
+    // the app writes nothing. The list lives in data/install-methods.json (never
+    // baked into the APK). Fail-safe: if the list can't be read, we write nothing.
     let factory_code = null;
-    if (env.STORE_BRIDGE_SECRET && env.LICENSING && /^[A-HJ-NPR-Z0-9]{17}$/.test(vin)) {
+    let needsFactory = false;
+    try {
+      const g = new GitHub(env);
+      const cfg = (await g.getFile("data/install-methods.json")).data || {};
+      needsFactory = Array.isArray(cfg.factoryCodeVehicles) && cfg.factoryCodeVehicles.includes(vehicle);
+    } catch (_e) { /* config unreadable → no factory code (safe default) */ }
+    if (needsFactory && env.STORE_BRIDGE_SECRET && env.LICENSING && /^[A-HJ-NPR-Z0-9]{17}$/.test(vin)) {
       try {
         const resp = await env.LICENSING.fetch(new Request("https://licensing/api/reseller/store-factory", {
           method: "POST",
