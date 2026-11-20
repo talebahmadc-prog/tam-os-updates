@@ -46,6 +46,16 @@ function json(data, status = 200, headers = {}) {
 }
 const now = () => Math.floor(Date.now() / 1000);
 
+// ---- Factory Pass install gate: single-use codes minted per distributor --------
+// A distributor mints a fresh random 6-digit code (stored in factory_codes); the
+// app verifies it once (single-use), and installs are then allowed until the next
+// China (UTC+8) midnight.
+function fpValidUntil(ms = Date.now()) {
+  const chinaMs = ms + 8 * 3600 * 1000;
+  const nextDayChinaMs = (Math.floor(chinaMs / 86400000) + 1) * 86400000;
+  return nextDayChinaMs - 8 * 3600 * 1000; // epoch millis of the next China midnight
+}
+
 // base64 <-> utf8 text (for GitHub Contents API)
 function b64encodeUtf8(str) {
   const bytes = enc.encode(str);
@@ -189,6 +199,7 @@ function upsertAppRelease(appsDoc, meta, release) {
       id: meta.appId, name: meta.name || meta.appId,
       packageName: meta.packageName || "", category: meta.category || "tools",
       tags: meta.tags || [], enabled: true,
+      private: !!meta.private, code: meta.code || "",
       compatibility: meta.compatibility || { allVehicles: false, vehicles: [], require: {} },
       releases: [],
     };
@@ -198,6 +209,8 @@ function upsertAppRelease(appsDoc, meta, release) {
     if (meta.packageName) app.packageName = meta.packageName;
     if (meta.category) app.category = meta.category;
     if (meta.compatibility) app.compatibility = meta.compatibility;
+    if (meta.private !== undefined) app.private = !!meta.private;
+    if (meta.code !== undefined && meta.code !== "") app.code = meta.code;
   }
   app.releases = (app.releases || []).filter((r) => r.variant !== release.variant);
   app.releases.push(release);
@@ -225,40 +238,42 @@ export default {
       if (!path.startsWith("/api/")) return env.ASSETS.fetch(req); // static (login UI, SPA)
       return await api(req, env, path);
     } catch (e) {
-      return json({ error: String(e.message || e) }, 500);
+      console.log("api error", path, String(e && e.message || e));
+      return json({ error: "internal error" }, 500);   // don't leak upstream/GitHub detail
     }
   },
 };
+
+// Per-isolate short cache for apps.json so brute-force on /api/private-app does not
+// hammer the shared GitHub token (5000 req/hr) and DoS the rest of the store.
+let _appsCache = { at: 0, apps: null };
+async function cachedApps(env) {
+  const t = Date.now();
+  if (_appsCache.apps && t - _appsCache.at < 30000) return _appsCache.apps;
+  const apps = (await new GitHub(env).getFile("data/apps.json")).data?.apps || [];
+  _appsCache = { at: t, apps };
+  return apps;
+}
+const clientIp = (req) => req.headers.get("cf-connecting-ip") || "0";
+// Rate-limit helper: true = allowed, false = over limit. No-op when binding absent.
+async function rl(env, key) {
+  if (!env.RL) return true;
+  try { return (await env.RL.limit({ key })).success; } catch (_e) { return true; }
+}
 
 async function api(req, env, path) {
   const method = req.method;
 
   // ---- login ----
-  // A local account (store admin) is tried first. Any other username is treated
-  // as a DISTRIBUTOR and verified against the Neta licensing system over HTTP
-  // (same username/password as the resellers there) — the store never touches
-  // the licensing database, it only asks the licensing Worker to verify.
+  // The store has NO separate accounts: every login (distributor AND admin) is a
+  // Neta licensing account (https://neta-licensing.netau.workers.dev). A reseller
+  // signs in as a distributor ("uploader"); a licensing admin signs in as the store
+  // admin. The store only asks the licensing Worker to verify — it never keeps its
+  // own user table.
   if (path === "/api/login" && method === "POST") {
     const { username, password } = await req.json().catch(() => ({}));
     if (!username || !password) return json({ error: "username and password required" }, 400);
     const bad = () => json({ error: "invalid credentials" }, 401);
-
-    const u = await env.DB.prepare(`SELECT * FROM users WHERE username = ?`).bind(username).first();
-    if (u) {
-      if (!u.active) return bad();
-      if (u.locked_until > now()) return json({ error: "account locked, try later" }, 423);
-      const hash = await pbkdf2(password, hexToBytes(u.pass_salt), u.pass_iter);
-      if (!timingSafeEqual(hash, u.pass_hash)) {
-        const tries = (u.failed_tries || 0) + 1;
-        const lock = tries >= 5 ? now() + 300 : 0;
-        await env.DB.prepare(`UPDATE users SET failed_tries=?, locked_until=? WHERE id=?`).bind(tries, lock, u.id).run();
-        return bad();
-      }
-      await env.DB.prepare(`UPDATE users SET failed_tries=0, locked_until=0, last_login=? WHERE id=?`).bind(now(), u.id).run();
-      const s = await createSession(env, u.username, u.role);
-      return json({ ok: true, username: u.username, role: u.role, csrf: s.csrf },
-        200, { "Set-Cookie": cookieHeader(s.token, s.ttl) });
-    }
 
     // distributor (reseller) login — delegated to the licensing Worker through a
     // service binding (same account; a plain fetch to its workers.dev URL is
@@ -276,9 +291,276 @@ async function api(req, env, path) {
           return json({ ok: true, username, role: "uploader", csrf: s.csrf },
             200, { "Set-Cookie": cookieHeader(s.token, s.ttl) });
         }
+      } catch (_e) { /* fall through */ }
+
+      // licensing ADMIN -> store ADMIN (same account as neta-licensing /admin).
+      try {
+        const resp = await env.LICENSING.fetch(new Request("https://licensing/api/admin/login", {
+          method: "POST", headers: { "content-type": "application/json" },
+          body: JSON.stringify({ username, password }),
+        }));
+        if (resp.ok) {
+          const d = await resp.json().catch(() => ({}));
+          if (d && d.token) {
+            const s = await createSession(env, username, "admin");
+            await audit(env, username, "login_admin_licensing", username);
+            return json({ ok: true, username, role: "admin", csrf: s.csrf },
+              200, { "Set-Cookie": cookieHeader(s.token, s.ttl) });
+          }
+        }
       } catch (_e) { /* fall through to invalid credentials */ }
     }
     return bad();
+  }
+
+  // ---- activate (app first-use): validate a distributor's credentials online ----
+  // No session is created — the app just needs a yes/no. Delegates to the
+  // licensing system (same reseller accounts) via the service binding.
+  if (path === "/api/activate" && method === "POST") {
+    const { code, username, password, device_id } = await req.json().catch(() => ({}));
+    if (!device_id) return json({ ok: false, error: "device id required" }, 400);
+    const byCode = !!code;
+    if (!byCode && (!username || !password)) return json({ ok: false, error: "username and password required" }, 400);
+    if (env.LICENSING) {
+      try {
+        // charges the 'tam-store' product (2 tokens) once per device. Either a
+        // one-time distributor code, or the distributor's own credentials.
+        const payload = byCode ? { code, device_id } : { username, password, device_id };
+        const resp = await env.LICENSING.fetch(new Request("https://licensing/api/reseller/store-activate", {
+          method: "POST", headers: { "content-type": "application/json" },
+          body: JSON.stringify(payload),
+        }));
+        const data = await resp.json().catch(() => ({}));
+        if (resp.ok && data.ok) {
+          await audit(env, byCode ? "code" : username, "activate_store", device_id, { via: data.via, tokens_left: data.tokens_left, reused: !!data.reused });
+          return json({ ok: true, username: username || null, via: data.via, tokens_left: data.tokens_left, distributor: data.distributor || null });
+        }
+        return json({ ok: false, error: data.error || "activation failed" }, resp.status || 401);
+      } catch (_e) { /* fall through */ }
+    }
+    return json({ ok: false, error: "invalid credentials" }, 401);
+  }
+
+  // ---- PUBLIC catalog + self-update version, fresh from GitHub (no CDN cache) ----
+  // The app reads these instead of raw.githubusercontent so new apps/updates and
+  // store self-updates appear instantly instead of after GitHub's ~5-min CDN TTL.
+  if (path === "/api/catalog" && method === "GET") {
+    try {
+      const g = new GitHub(env);
+      const [apps, vehicles, categories] = await Promise.all([
+        g.getFile("data/apps.json"), g.getFile("data/vehicles.json"), g.getFile("data/categories.json"),
+      ]);
+      return json({
+        apps: (apps.data?.apps || []).filter((a) => !a.private),   // private apps are code-only
+        vehicles: vehicles.data?.vehicles || [],
+        categories: categories.data?.categories || [],
+      }, 200, { "cache-control": "no-store", "access-control-allow-origin": "*" });
+    } catch (_e) { return json({ error: "catalog unavailable" }, 502, { "access-control-allow-origin": "*" }); }
+  }
+
+  // ---- private app by 6-digit code ("Private apps" button in the app) ----
+  if (path === "/api/private-app" && method === "POST") {
+    const H = { "cache-control": "no-store", "access-control-allow-origin": "*" };
+    if (!(await rl(env, "pa:" + clientIp(req)))) return json({ error: "too many attempts, slow down" }, 429, H);
+    const { code } = await req.json().catch(() => ({}));
+    const c = String(code || "").replace(/\D/g, "");
+    if (c.length < 6) return json({ error: "bad code" }, 400, H);
+    try {
+      const apps = await cachedApps(env);   // cached so brute force can't exhaust the GitHub token
+      const app = apps.find((a) => a.private && String(a.code || "") === c && a.enabled !== false);
+      if (!app) return json({ error: "invalid code" }, 404, H);
+      return json({ ok: true, app }, 200, H);
+    } catch (_e) { return json({ error: "unavailable" }, 502, H); }
+  }
+  if (path === "/api/store-version" && method === "GET") {
+    try {
+      const g = new GitHub(env);
+      const f = await g.getFile("releases/tam-store.json");
+      return json(f.data || {}, 200, { "cache-control": "no-store", "access-control-allow-origin": "*" });
+    } catch (_e) { return json({ error: "version unavailable" }, 502, { "access-control-allow-origin": "*" }); }
+  }
+
+  // ---- per-vehicle install recipe (fetched by the app; kept OUT of the APK) ----
+  if (path === "/api/install-method" && method === "GET") {
+    try {
+      const vehicle = new URL(req.url).searchParams.get("vehicle") || "";
+      const g = new GitHub(env);
+      let cfg = {};
+      try { cfg = (await g.getFile("data/install-methods.json")).data || {}; } catch (_e) { /* use defaults */ }
+      const def = cfg.default || { installer: "session", installerPackage: "", reinstall: true, allowDowngrade: true, grantAll: true };
+      const veh = (cfg.vehicles && cfg.vehicles[vehicle]) || {};
+      return json({ ok: true, vehicle, recipe: { ...def, ...veh } }, 200, { "cache-control": "no-store", "access-control-allow-origin": "*" });
+    } catch (_e) { return json({ error: "unavailable" }, 502, { "access-control-allow-origin": "*" }); }
+  }
+
+  // ---- distributor contact (name + phone) by username, for the app's Factory Pass screen ----
+  if (path === "/api/distributor" && method === "GET") {
+    const username = new URL(req.url).searchParams.get("username") || "";
+    const H = { "cache-control": "no-store", "access-control-allow-origin": "*" };
+    if (!(await rl(env, "dist:" + clientIp(req)))) return json({ ok: false, error: "rate limited" }, 429, H);
+    if (!username) return json({ ok: false, error: "bad request" }, 400, H);
+    if (!env.STORE_BRIDGE_SECRET || !env.LICENSING) return json({ ok: false }, 200, H);
+    try {
+      const resp = await env.LICENSING.fetch(new Request("https://licensing/api/reseller/store-distributor", {
+        method: "POST",
+        headers: { "content-type": "application/json", "X-Store-Bridge": env.STORE_BRIDGE_SECRET },
+        body: JSON.stringify({ username }),
+      }));
+      const data = await resp.json().catch(() => ({}));
+      if (resp.ok && data.ok) return json({ ok: true, name: data.name, phone: data.phone }, 200, H);
+      return json({ ok: false }, 200, H);
+    } catch (_e) { return json({ ok: false }, 200, H); }
+  }
+
+  // ---- online license re-check: the app calls this on launch to stay activated ----
+  // Makes the platform authoritative: a device is "active" only if the licensing
+  // system still has a tam-store activation for it (by device_id OR VIN) and the
+  // distributor account is active. Editing local prefs cannot fake this.
+  if (path === "/api/check" && method === "POST") {
+    const H = { "cache-control": "no-store", "access-control-allow-origin": "*" };
+    const { device_id, vin } = await req.json().catch(() => ({}));
+    if (!device_id) return json({ active: false, error: "bad request" }, 400, H);
+    if (!env.STORE_BRIDGE_SECRET || !env.LICENSING) return json({ active: false, error: "unavailable" }, 200, H);
+    try {
+      const resp = await env.LICENSING.fetch(new Request("https://licensing/api/reseller/store-check", {
+        method: "POST",
+        headers: { "content-type": "application/json", "X-Store-Bridge": env.STORE_BRIDGE_SECRET },
+        body: JSON.stringify({ device_id, vin: vin || "" }),
+      }));
+      const data = await resp.json().catch(() => ({}));
+      return json({ active: !!data.active, distributor: data.distributor || null }, 200, H);
+    } catch (_e) { return json({ active: false, error: "unreachable" }, 200, H); }
+  }
+
+  // ---- APP verifies a factory code: single-use, 24h, minted by a distributor ----
+  if (path === "/api/factory-pass/verify" && method === "POST") {
+    const H = { "cache-control": "no-store", "access-control-allow-origin": "*" };
+    if (!(await rl(env, "fp:" + clientIp(req)))) return json({ ok: false, error: "rate limited" }, 429, H);
+    const b = await req.json().catch(() => ({}));
+    const vin = String(b.vin || "").trim().toUpperCase();
+    const code = String(b.code || "").replace(/\D/g, "");
+    if (code.length < 4) return json({ ok: false, error: "bad input" }, 400, H);
+    const nowS = now();
+    const row = await env.DB.prepare("SELECT vin, expires_at, used_at FROM factory_codes WHERE code=?").bind(code).first();
+    if (!row || row.used_at || row.expires_at <= nowS) return json({ ok: false }, 200, H);
+    // NOTE: we intentionally do NOT reject on a VIN mismatch. The code's VIN (if any)
+    // is informational only — "one vehicle only" is guaranteed by single-use + 24h,
+    // not by matching the head-unit's VIN (which often differs by a char from what the
+    // distributor typed, and the distributor shouldn't be forced to type it at all).
+    // single-use: claim atomically
+    const claim = await env.DB.prepare("UPDATE factory_codes SET used_at=? WHERE code=? AND used_at IS NULL").bind(nowS, code).run();
+    if (!claim.meta || claim.meta.changes !== 1) return json({ ok: false }, 200, H);
+    // The 6-digit gate was valid & claimed. Now hand the app the REAL head-unit
+    // factory code (dev_adb_auth_passwd), derived server-side from VIN + China date
+    // (last 9 chars of base64(AES-ECB(VIN+YYYYMMDD, FACTORY_KEY))). The licensing
+    // worker holds FACTORY_KEY; this no-charge bridge returns the same value the old
+    // FactoryTool produced. The app writes it to the vehicle to unlock installs.
+    // Only released against a just-redeemed single-use code, and only for a real
+    // 17-char VIN (the AES input must be exact or the code won't match the car).
+    let factory_code = null;
+    if (env.STORE_BRIDGE_SECRET && env.LICENSING && /^[A-HJ-NPR-Z0-9]{17}$/.test(vin)) {
+      try {
+        const resp = await env.LICENSING.fetch(new Request("https://licensing/api/reseller/store-factory", {
+          method: "POST",
+          headers: { "content-type": "application/json", "X-Store-Bridge": env.STORE_BRIDGE_SECRET },
+          body: JSON.stringify({ vin }),
+        }));
+        const d = await resp.json().catch(() => ({}));
+        if (d && d.ok && d.code) factory_code = d.code;
+      } catch (_e) { /* licensing unreachable — the gate still passed */ }
+    }
+    return json({ ok: true, valid_until: fpValidUntil(), factory_code }, 200, H);
+  }
+
+  // ---- distributor mints a NEW single-use factory code (fresh each time, valid 24h) ----
+  if (path === "/api/factory-pass/create" && method === "POST") {
+    const u = await currentUser(req, env);
+    if (!u) return json({ error: "unauthorized" }, 401);
+    const b = await req.json().catch(() => ({}));
+    const vin = String(b.vin || "").trim().toUpperCase() || null;   // optional: bind to one vehicle
+    const nowS = now();
+    const expires = nowS + 24 * 3600;
+    let code = null;
+    for (let i = 0; i < 8; i++) {
+      const c = String(Math.floor(100000 + Math.random() * 900000));  // 6 random digits
+      const live = await env.DB.prepare("SELECT 1 FROM factory_codes WHERE code=? AND used_at IS NULL AND expires_at>?").bind(c, nowS).first();
+      if (!live) { code = c; break; }
+    }
+    if (!code) return json({ error: "try again" }, 503);
+    await env.DB.prepare("INSERT OR REPLACE INTO factory_codes (code, vin, created_by, created_at, expires_at, used_at) VALUES (?,?,?,?,?,NULL)")
+      .bind(code, vin, u.username, nowS, expires).run();
+    await audit(env, u.username, "factory_code_create", code, { vin: vin || "any" });
+    return json({ ok: true, code, vin: vin || "", scope: vin ? "vin" : "any", expires_at: expires * 1000 });
+  }
+
+  // ---- a distributor's own codes (factory + activation) with live status ----
+  if (path === "/api/my-codes" && method === "GET") {
+    const u = await currentUser(req, env);
+    if (!u) return json({ error: "unauthorized" }, 401);
+    const fc = await env.DB.prepare(
+      "SELECT code, vin, created_at*1000 AS created_ms, expires_at*1000 AS expires_ms, " +
+      "CASE WHEN used_at IS NULL THEN NULL ELSE used_at*1000 END AS used_ms " +
+      "FROM factory_codes WHERE created_by=? ORDER BY created_at DESC LIMIT 300"
+    ).bind(u.username).all();
+    const factory = (fc.results || []).map((r) => ({ ...r, type: "factory" }));
+    let activation = [];
+    if (env.STORE_BRIDGE_SECRET && env.LICENSING) {
+      try {
+        const resp = await env.LICENSING.fetch(new Request("https://licensing/api/reseller/store-codes-list", {
+          method: "POST",
+          headers: { "content-type": "application/json", "X-Store-Bridge": env.STORE_BRIDGE_SECRET },
+          body: JSON.stringify({ username: u.username }),
+        }));
+        const d = await resp.json().catch(() => ({}));
+        activation = (d.codes || []).map((r) => ({ ...r, type: "activation" }));
+      } catch (_e) { /* licensing unreachable */ }
+    }
+    return json({ ok: true, factory, activation });
+  }
+
+  // ---- distributor mints a one-time activation code (24h, single use) ----
+  // Needs a logged-in distributor session (an uploader = a reseller account).
+  // The charge happens later, in /api/activate, when the code is used.
+  if (path === "/api/store-code/create" && method === "POST") {
+    const u = await currentUser(req, env);
+    if (!u) return json({ error: "unauthorized" }, 401);
+    if (u.role !== "uploader") return json({ error: "only distributor accounts can create activation codes" }, 403);
+    if (!env.STORE_BRIDGE_SECRET) return json({ error: "server not configured for codes" }, 500);
+    if (!env.LICENSING) return json({ error: "licensing unavailable" }, 500);
+    const b = await req.json().catch(() => ({}));
+    const vin = typeof b.vin === "string" ? b.vin : "";
+    const products = Array.isArray(b.products) ? b.products : [];
+    try {
+      const resp = await env.LICENSING.fetch(new Request("https://licensing/api/reseller/store-code-create", {
+        method: "POST",
+        headers: { "content-type": "application/json", "X-Store-Bridge": env.STORE_BRIDGE_SECRET },
+        body: JSON.stringify({ username: u.username, vin, products }),
+      }));
+      const data = await resp.json().catch(() => ({}));
+      if (resp.ok && data.ok) {
+        await audit(env, u.username, "store_code_create", data.code, { vin: data.vin, services: (data.services || []).map((s) => s.key), total: data.total });
+        return json({ ok: true, code: data.code, expires_at: data.expires_at, vin: data.vin, services: data.services, total: data.total });
+      }
+      return json({ error: data.error || "could not create code" }, resp.status || 400);
+    } catch (_e) { return json({ error: "licensing unavailable" }, 502); }
+  }
+
+  // ---- services (licensing products) a distributor can put on a code ----
+  if (path === "/api/store-products" && method === "GET") {
+    const u = await currentUser(req, env);
+    if (!u) return json({ error: "unauthorized" }, 401);
+    if (u.role !== "uploader") return json({ ok: true, products: [] });
+    if (!env.STORE_BRIDGE_SECRET || !env.LICENSING) return json({ ok: true, products: [] });
+    try {
+      const resp = await env.LICENSING.fetch(new Request("https://licensing/api/reseller/store-products", {
+        method: "POST",
+        headers: { "content-type": "application/json", "X-Store-Bridge": env.STORE_BRIDGE_SECRET },
+        body: JSON.stringify({ username: u.username }),
+      }));
+      const data = await resp.json().catch(() => ({}));
+      if (resp.ok && data.ok) return json({ ok: true, products: data.products || [] });
+      return json({ ok: true, products: [] });
+    } catch (_e) { return json({ ok: true, products: [] }); }
   }
 
   // everything below needs a session
@@ -309,8 +591,13 @@ async function api(req, env, path) {
     const [apps, vehicles, categories] = await Promise.all([
       gh.getFile("data/apps.json"), gh.getFile("data/vehicles.json"), gh.getFile("data/categories.json"),
     ]);
+    let appsDoc = apps.data || { apps: [] };
+    // Non-admins (distributors) must NOT see private apps or their install codes.
+    if (!isAdmin) {
+      appsDoc = { ...appsDoc, apps: (appsDoc.apps || []).filter((a) => !a.private).map(({ code, ...rest }) => rest) };
+    }
     return json({
-      apps: apps.data || { apps: [] },
+      apps: appsDoc,
       vehicles: vehicles.data || { vehicles: [] },
       categories: categories.data || { categories: [] },
     });
@@ -355,7 +642,7 @@ async function api(req, env, path) {
         compatibility: body.compatibility || { allVehicles: false, vehicles: [], require: {} }, releases: [] };
       doc.apps.push(app);
     } else {
-      for (const k of ["name", "packageName", "category", "tags", "enabled", "compatibility", "description"]) {
+      for (const k of ["name", "packageName", "category", "tags", "enabled", "compatibility", "description", "private", "code"]) {
         if (body[k] !== undefined) app[k] = body[k];
       }
     }
@@ -395,6 +682,8 @@ async function api(req, env, path) {
       packageName: form.get("packageName") || undefined,
       category: form.get("category") || undefined,
       compatibility: safeJson(form.get("appCompatibility")) || undefined,
+      private: form.get("private") === "true",
+      code: (form.get("code") || "").trim(),
     };
 
     const bytes = new Uint8Array(await file.arrayBuffer());

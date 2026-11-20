@@ -1,12 +1,12 @@
 {
   "variant": "universal",
-  "versionCode": 20,
-  "versionName": "2.9",
+  "versionCode": 21,
+  "versionName": "3.0",
   "releaseTag": "tam-store",
-  "apkFileName": "TAM-Store-2.9.apk",
-  "apkUrl": "https://raw.githubusercontent.com/talebahmadc-prog/tam-os-updates/main/releases/TAM-Store-2.9.apk",
+  "apkFileName": "TAM-Store-3.0.apk",
+  "apkUrl": "https://raw.githubusercontent.com/talebahmadc-prog/tam-os-updates/main/releases/TAM-Store-3.0.apk",
   "published": true,
-  "sha256": "3da822a042f2319a8ddb5870437f9e1125220856bf6360c94a71430254de5dde",
-  "sizeBytes": 1808650,
-  "updatedAt": "2026-11-19"
+  "sha256": "8936e7ca0535f899d1d1adb4723cfc5a105e69c8213fbe7e06f287d3bba796d8",
+  "sizeBytes": 1808726,
+  "updatedAt": "2026-11-20"
 }
